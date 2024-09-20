@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "-o",
+                "${workspaceFolder}/${workspaceFolderBasename}",
+                "${workspaceFolder}/src/**/*.cpp",
+                "-I${workspaceFolder}/src",
+                "-I/usr/include/SDL2",
+                "-I/usr/include/nlohmann",
+                "-lSDL2",
+                "-lSDL2_image"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
