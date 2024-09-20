@@ -11,7 +11,6 @@ namespace TankMovements {
     enum class Rotation {
         CLOCKWISE,
         COUNTERCLOCKWISE,
-        NONE,
     };
 
     static constexpr double ROTATE_SPEED_MULTIPLIER = 0.5;

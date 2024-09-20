@@ -15,9 +15,9 @@ void InputManager::handleInput(EntityManager& entityManager, double deltaTime) {
     }
 
     if (keystate[SDL_SCANCODE_A]) {
-        playerTank->rotateTank(TankMovements::Rotation::COUNTERCLOCKWISE, deltaTime);
+        playerTank->rotate(TankMovements::Rotation::COUNTERCLOCKWISE, deltaTime);
     } else if (keystate[SDL_SCANCODE_D]) {
-        playerTank->rotateTank(TankMovements::Rotation::CLOCKWISE, deltaTime);
+        playerTank->rotate(TankMovements::Rotation::CLOCKWISE, deltaTime);
     }
 
     if (keystate[SDL_SCANCODE_Q]) {

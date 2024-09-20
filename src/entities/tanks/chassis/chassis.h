@@ -14,18 +14,15 @@ public:
     void render(SDL_Renderer* renderer) const override;
 
     void move(TankMovements::Movement movement, double deltaTime);
-    void rotate(TankMovements::Rotation rotation, double deltaTime);
+    void rotate(TankMovements::Rotation rotation, double deltaTime, bool isMoving);
 
     double getAngle() const { return m_angle; }
     void setAngle(double angle) { m_angle = angle; }
-    bool isMoving() const { return m_isMoving; }
 
     SDL_Rect getRect() const override;
 
 private:
     double m_angle;
-
-    bool m_isMoving;
 
     const TextureInfo* m_chassisTextureInfo;
 

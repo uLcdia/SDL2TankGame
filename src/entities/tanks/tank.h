@@ -13,7 +13,7 @@ public:
     void render(SDL_Renderer* renderer) const;
 
     void move(TankMovements::Movement movement, double deltaTime);
-    void rotateTank(TankMovements::Rotation rotation, double deltaTime);
+    void rotate(TankMovements::Rotation rotation, double deltaTime);
     void rotateTurret(TankMovements::Rotation rotation, double deltaTime);
     void fire();
 
@@ -24,6 +24,8 @@ public:
 private:
     std::unique_ptr<Chassis> m_chassis;
     std::unique_ptr<Turret> m_turret;
+
+    bool m_isMoving;
 };
 
 #endif // TANK_H

@@ -14,7 +14,7 @@ public:
     void update(double deltaTime) override;
     void render(SDL_Renderer* renderer) const override;
 
-    void rotate(TankMovements::Rotation rotation, double deltaTime, bool isTankMoving);
+    void rotate(TankMovements::Rotation rotation, double deltaTime, bool isMoving);
 
     double getAngle() const { return m_angle; }
     void setAngle(double angle) { m_angle = angle; }

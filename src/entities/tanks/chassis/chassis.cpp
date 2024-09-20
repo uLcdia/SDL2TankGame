@@ -15,21 +15,15 @@ void Chassis::move(TankMovements::Movement movement, double deltaTime) {
     switch (movement) {
         case TankMovements::Movement::FORWARD:
             setVelocity(std::sin(m_angle * M_PI / 180.0) * MOVE_SPEED, -std::cos(m_angle * M_PI / 180.0) * MOVE_SPEED);
-            m_isMoving = true;
             break;
         case TankMovements::Movement::BACKWARD:
             setVelocity(-std::sin(m_angle * M_PI / 180.0) * MOVE_SPEED, std::cos(m_angle * M_PI / 180.0) * MOVE_SPEED);
-            m_isMoving = true;
-            break;
-        case TankMovements::Movement::NONE:
-            setVelocity(0, 0);
-            m_isMoving = false;
             break;
     }
 }
 
-void Chassis::rotate(TankMovements::Rotation rotation, double deltaTime) {
-    double rotationSpeed = m_isMoving ? ROTATE_SPEED * TankMovements::ROTATE_SPEED_MULTIPLIER : ROTATE_SPEED;
+void Chassis::rotate(TankMovements::Rotation rotation, double deltaTime, bool isMoving) {
+    double rotationSpeed = isMoving ? ROTATE_SPEED * TankMovements::ROTATE_SPEED_MULTIPLIER : ROTATE_SPEED;
 
     switch (rotation) {
         case TankMovements::Rotation::CLOCKWISE:
@@ -37,8 +31,6 @@ void Chassis::rotate(TankMovements::Rotation rotation, double deltaTime) {
             break;
         case TankMovements::Rotation::COUNTERCLOCKWISE:
             m_angle -= rotationSpeed * deltaTime;
-            break;
-        case TankMovements::Rotation::NONE:
             break;
     }
 

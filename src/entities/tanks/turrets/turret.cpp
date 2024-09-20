@@ -15,8 +15,8 @@ void Turret::update(double deltaTime) {
     updateShells(deltaTime);
 }
 
-void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, bool isTankMoving) {
-    double rotationSpeed = isTankMoving ? ROTATE_SPEED * TankMovements::ROTATE_SPEED_MULTIPLIER : ROTATE_SPEED;
+void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, bool isMoving) {
+    double rotationSpeed = isMoving ? ROTATE_SPEED * TankMovements::ROTATE_SPEED_MULTIPLIER : ROTATE_SPEED;
 
     switch (rotation) {
         case TankMovements::Rotation::CLOCKWISE:
@@ -24,8 +24,6 @@ void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, bool isT
             break;
         case TankMovements::Rotation::COUNTERCLOCKWISE:
             m_angle -= rotationSpeed * deltaTime;
-            break;
-        case TankMovements::Rotation::NONE:
             break;
     }
 

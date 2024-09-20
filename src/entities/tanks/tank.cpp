@@ -19,15 +19,22 @@ void Tank::render(SDL_Renderer* renderer) const {
 }
 
 void Tank::move(TankMovements::Movement movement, double deltaTime) {
-    m_chassis->move(movement, deltaTime);
+    if (movement == TankMovements::Movement::NONE) {
+        m_chassis->setVelocity(0, 0);
+        m_isMoving = false;
+    } else {
+        m_chassis->move(movement, deltaTime);
+        m_isMoving = true;
+    }
 }
 
-void Tank::rotateTank(TankMovements::Rotation rotation, double deltaTime) {
-    m_chassis->rotate(rotation, deltaTime);
-    m_turret->rotate(rotation, deltaTime, m_chassis->isMoving());
+void Tank::rotate(TankMovements::Rotation rotation, double deltaTime) {
+    m_chassis->rotate(rotation, deltaTime, m_isMoving);
+    m_turret->rotate(rotation, deltaTime, m_isMoving);
 }
 
 void Tank::rotateTurret(TankMovements::Rotation rotation, double deltaTime) {
+    // Turrent rotation should be independent of chassis rotation
     m_turret->rotate(rotation, deltaTime, false);
 }
 
