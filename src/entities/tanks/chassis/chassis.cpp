@@ -2,14 +2,9 @@
 #include <cmath>
 #include <algorithm>
 
-Chassis::Chassis(double x, double y, const TextureInfo& chassisTextureInfo)
-    : DynamicEntity(x, y, chassisTextureInfo),
-      m_angle(0.0)
+Chassis::Chassis(double x, double y, double angle, const TextureInfo& chassisTextureInfo, double scale)
+    : DynamicEntity(x, y, angle, chassisTextureInfo, scale)
 {}
-
-void Chassis::update(double deltaTime) {
-    DynamicEntity::update(deltaTime);
-}
 
 void Chassis::move(TankMovements::Movement movement, double deltaTime) {
     switch (movement) {
@@ -35,17 +30,4 @@ void Chassis::rotate(TankMovements::Rotation rotation, double deltaTime, bool is
     }
 
     m_angle = fmod(m_angle + 360.0, 360.0);
-}
-
-void Chassis::render(SDL_Renderer* renderer) const {
-    // Render the chassis
-    SDL_Rect chassisRect = getRect();
-    SDL_RenderCopyEx(renderer, m_textureInfo->texture, nullptr, &chassisRect, m_angle, nullptr, SDL_FLIP_NONE);
-}
-
-SDL_Rect Chassis::getRect() const {
-    SDL_Rect rect = DynamicEntity::getRect();
-    rect.x -= rect.w / 2;
-    rect.y -= rect.h / 2;
-    return rect;
 }

@@ -28,7 +28,7 @@ bool EntityManager::loadMap(const std::string& mapFilePath) {
 
     // Create player tank
     auto [tankX, tankY] = mapParser.getPlayerTankPosition();
-    createPlayerTank(tankX * mapParser.getTileSize(), tankY * mapParser.getTileSize());
+    createPlayerTank(tankX * mapParser.getTileSize(), tankY * mapParser.getTileSize(), 0.0, 0.5);
 
     return true;
 }
@@ -62,16 +62,16 @@ void EntityManager::createTile(double x, double y, const TileProperty& tilePrope
     std::cout << "Created " + tileProperty.name + " at (" << x << ", " << y << ")" << std::endl;
 }
 
-void EntityManager::createPlayerTank(double x, double y) {
+void EntityManager::createPlayerTank(double x, double y, double angle, double scale) {
     const auto& chassisTextureInfo = m_resourceManager.getTextureInfo("tank");
     const auto& turretTextureInfo = m_resourceManager.getTextureInfo("turret");
     const auto& shellTextureInfo = m_resourceManager.getTextureInfo("shell");
-    m_playerTank = std::make_unique<Tank>(x, y, chassisTextureInfo, turretTextureInfo, shellTextureInfo);
+    m_playerTank = std::make_unique<Tank>(x, y, angle, chassisTextureInfo, turretTextureInfo, shellTextureInfo, scale);
 }
 
-void EntityManager::createShell(double x, double y, double angle) {
+void EntityManager::createShell(double x, double y, double angle, double scale) {
     const auto& shellTextureInfo = m_resourceManager.getTextureInfo("shell");
-    m_shells.push_back(std::make_unique<Shell>(x, y, angle, shellTextureInfo));
+    m_shells.push_back(std::make_unique<Shell>(x, y, angle, shellTextureInfo, scale));
 }
 
 void EntityManager::update(double deltaTime) {

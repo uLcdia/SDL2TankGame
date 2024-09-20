@@ -2,9 +2,8 @@
 #include <cmath>
 #include <algorithm>
 
-Turret::Turret(double x, double y, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo)
-    : DynamicEntity(x, y, turretTextureInfo),
-      m_angle(0.0),
+Turret::Turret(double x, double y, double angle, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo, double scale)
+    : DynamicEntity(x, y, angle, turretTextureInfo, scale),
       m_turretTextureInfo(&turretTextureInfo),
       m_shellTextureInfo(&shellTextureInfo),
       m_fireTimer(0.0)
@@ -32,18 +31,18 @@ void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, bool isM
 
 void Turret::render(SDL_Renderer* renderer) const {
     // Calculate the position of the turret's pivot point
-    double turretPivotX = getX();
-    double turretPivotY = getY();
+    double turretPivotX = getScaledWidth() * 0.5;
+    double turretPivotY = getScaledHeight() * 0.65;
 
     // Set the pivot point for turret rotation
-    SDL_Point turretPivot = {m_turretTextureInfo->width / 2, static_cast<int>(m_turretTextureInfo->height * 0.65)};
+    SDL_Point turretPivot = {static_cast<int>(turretPivotX), static_cast<int>(turretPivotY)};
 
     // Set up destination rectangle for the turret
     SDL_Rect turretRect = {
-        static_cast<int>(turretPivotX - m_turretTextureInfo->width / 2),
-        static_cast<int>(turretPivotY - m_turretTextureInfo->height * 0.65),
-        m_turretTextureInfo->width,
-        m_turretTextureInfo->height
+        static_cast<int>(getX() - turretPivotX),
+        static_cast<int>(getY() - turretPivotY),
+        getScaledWidth(),
+        getScaledHeight()
     };
 
     // Render the turret
@@ -59,7 +58,7 @@ void Turret::fire() {
 
     m_fireTimer = currentTime;
 
-    m_shells.emplace_back(Shell::createShell(getX(), getY(), m_angle, *m_shellTextureInfo));
+    m_shells.emplace_back(Shell::createShell(getX(), getY(), m_angle, *m_shellTextureInfo, m_scale));
 }
 
 void Turret::updateShells(double deltaTime) {
@@ -77,11 +76,4 @@ void Turret::renderShells(SDL_Renderer* renderer) const {
     for (const auto& shell : m_shells) {
         shell.render(renderer);
     }
-}
-
-SDL_Rect Turret::getRect() const {
-    SDL_Rect rect = DynamicEntity::getRect();
-    rect.x -= rect.w / 2;
-    rect.y -= rect.h / 2;
-    return rect;
 }

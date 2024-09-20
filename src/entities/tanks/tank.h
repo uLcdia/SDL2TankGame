@@ -7,7 +7,7 @@
 
 class Tank {
 public:
-    Tank(double x, double y, const TextureInfo& chassisTextureInfo, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo);
+    Tank(double x, double y, double angle, const TextureInfo& chassisTextureInfo, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo, double scale = 1.0);
 
     void update(double deltaTime);
     void render(SDL_Renderer* renderer) const;

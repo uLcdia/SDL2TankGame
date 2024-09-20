@@ -17,8 +17,8 @@ public:
     EntityManager(ResourceManager& resourceManager);
 
     bool loadMap(const std::string& mapFilePath);
-    void createPlayerTank(double x, double y);
-    void createShell(double x, double y, double angle);
+    void createPlayerTank(double x, double y, double angle, double scale);
+    void createShell(double x, double y, double angle, double scale);
 
     void update(double deltaTime);
     void render(SDL_Renderer* renderer) const;

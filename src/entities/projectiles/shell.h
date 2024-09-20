@@ -6,7 +6,7 @@
 
 class Shell : public DynamicEntity {
 public:
-    Shell(double x, double y, double angle, const TextureInfo& shellTextureInfo);
+    Shell(double x, double y, double angle, const TextureInfo& shellTextureInfo, double scale = 1.0);
     
     void update(double deltaTime) override;
     void render(SDL_Renderer* renderer) const override;
@@ -14,12 +14,9 @@ public:
     bool isActive() const { return m_active; }
     void setActive(bool active) { m_active = active; }
 
-    double getAngle() const { return m_angle; }
-
-    static Shell createShell(double x, double y, double angle, const TextureInfo& shellTextureInfo);
+    static Shell createShell(double x, double y, double angle, const TextureInfo& shellTextureInfo, double scale = 1.0);
 
 private:
-    double m_angle;
     bool m_active;
     
     const TextureInfo* m_shellTextureInfo;

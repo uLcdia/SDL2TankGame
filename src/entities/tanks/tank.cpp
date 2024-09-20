@@ -1,8 +1,8 @@
 #include "tank.h"
 
-Tank::Tank(double x, double y, const TextureInfo& chassisTextureInfo, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo)
-    : m_chassis(std::make_unique<Chassis>(x, y, chassisTextureInfo)),
-      m_turret(std::make_unique<Turret>(x, y, turretTextureInfo, shellTextureInfo))
+Tank::Tank(double x, double y, double angle, const TextureInfo& chassisTextureInfo, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo, double scale)
+    : m_chassis(std::make_unique<Chassis>(x, y, angle, chassisTextureInfo, scale)),
+      m_turret(std::make_unique<Turret>(x, y, angle, turretTextureInfo, shellTextureInfo, scale))
 {}
 
 void Tank::update(double deltaTime) {

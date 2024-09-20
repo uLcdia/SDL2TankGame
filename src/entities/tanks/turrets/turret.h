@@ -9,25 +9,18 @@
 
 class Turret : public DynamicEntity {
 public:
-    Turret(double x, double y, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo);
+    Turret(double x, double y, double angle, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo, double scale = 1.0);
     
     void update(double deltaTime) override;
     void render(SDL_Renderer* renderer) const override;
 
     void rotate(TankMovements::Rotation rotation, double deltaTime, bool isMoving);
 
-    double getAngle() const { return m_angle; }
-    void setAngle(double angle) { m_angle = angle; }
-
     void fire();
     void updateShells(double deltaTime);
     void renderShells(SDL_Renderer* renderer) const;
 
-    SDL_Rect getRect() const override;
-
 private:
-    double m_angle;
-
     const TextureInfo* m_turretTextureInfo;
     const TextureInfo* m_shellTextureInfo;
 
