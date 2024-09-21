@@ -1,8 +1,8 @@
 #include "tank.h"
 
-Tank::Tank(double x, double y, double angle, const TextureInfo& chassisTextureInfo, const TextureInfo& turretTextureInfo, const TextureInfo& shellTextureInfo, double scale)
+Tank::Tank(double x, double y, double angle, const TextureInfo& chassisTextureInfo, const TextureInfo& turretTextureInfo, double scale)
     : m_chassis(std::make_unique<Chassis>(x, y, angle, chassisTextureInfo, scale)),
-      m_turret(std::make_unique<Turret>(x, y, angle, turretTextureInfo, shellTextureInfo, scale))
+      m_turret(std::make_unique<Turret>(x, y, angle, turretTextureInfo, scale))
 {}
 
 void Tank::update(double deltaTime) {
@@ -38,6 +38,10 @@ void Tank::rotateTurret(TankMovements::Rotation rotation, double deltaTime) {
     m_turret->rotate(rotation, deltaTime, false);
 }
 
-void Tank::fire() {
-    m_turret->fire();
+void Tank::fire(const Cartridge::FireCallback& fireCallback) {
+    m_turret->fire(fireCallback);
+}
+
+void Tank::addCartridge(const std::string& name, const std::string& projectileType, int capacity, double fireInterval, double reloadInterval) {
+    m_turret->addCartridge(name, projectileType, capacity, fireInterval, reloadInterval);
 }

@@ -61,9 +61,14 @@ void Game::run() {
 // Process SDL events
 void Game::handleEvents() {
     SDL_Event event;
-    while (SDL_PollEvent(&event) != 0) {
-        if (event.type == SDL_QUIT) {
-            m_isRunning = false;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                m_isRunning = false;
+                break;
+            default:
+                m_inputManager.handleEvent(event, *m_entityManager);
+                break;
         }
     }
 }

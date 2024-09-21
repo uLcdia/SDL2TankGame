@@ -11,4 +11,4 @@ struct TileProperty {
     int health = 1;
 };
 
-#endif
+#endif // TILE_PROPERTY_H

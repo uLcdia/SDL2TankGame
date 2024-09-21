@@ -7,6 +7,10 @@
 class InputManager {
 public:
     void handleInput(EntityManager& entityManager, double deltaTime);
+    void handleEvent(SDL_Event& event, EntityManager& entityManager);
+
+private:
+    bool m_rKeyPressed = false;
 };
 
 #endif // INPUT_MANAGER_H

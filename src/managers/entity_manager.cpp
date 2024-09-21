@@ -27,8 +27,25 @@ bool EntityManager::loadMap(const std::string& mapFilePath) {
     std::cout << "Created ground tiles: " << m_groundTiles.size() << std::endl;
 
     // Create player tank
-    auto [tankX, tankY] = mapParser.getPlayerTankPosition();
-    createPlayerTank(tankX * mapParser.getTileSize(), tankY * mapParser.getTileSize(), 0.0, 0.5);
+    PlayerParser playerParser("assets/levels/level1/player.json");
+    if (!playerParser.parse()) {
+        std::cerr << "Failed to parse player config file: " << "assets/levels/level1/player.json" << std::endl;
+        return false;
+    }
+
+    // Load projectile info
+    for (const auto& projectileType : playerParser.getProjectileTypes()) {
+        m_resourceManager.addProjectileInfo(projectileType.name, projectileType);
+        m_resourceManager.loadProjectileTexture(projectileType.name, projectileType.texturePath);
+    }
+
+    auto [tankX, tankY] = playerParser.getPosition();
+    createPlayerTank(tankX * mapParser.getTileSize(), tankY * mapParser.getTileSize(), playerParser.getAngle(), playerParser.getScale());
+
+    // Load cartridges
+    for (const auto& cartridgeInfo : playerParser.getCartridges()) {
+        m_playerTank->addCartridge(cartridgeInfo.name, cartridgeInfo.projectileType, cartridgeInfo.capacity, cartridgeInfo.fireInterval, cartridgeInfo.reloadInterval);
+    }
 
     return true;
 }
@@ -65,13 +82,13 @@ void EntityManager::createTile(double x, double y, const TileProperty& tilePrope
 void EntityManager::createPlayerTank(double x, double y, double angle, double scale) {
     const auto& chassisTextureInfo = m_resourceManager.getTextureInfo("tank");
     const auto& turretTextureInfo = m_resourceManager.getTextureInfo("turret");
-    const auto& shellTextureInfo = m_resourceManager.getTextureInfo("shell");
-    m_playerTank = std::make_unique<Tank>(x, y, angle, chassisTextureInfo, turretTextureInfo, shellTextureInfo, scale);
+    m_playerTank = std::make_unique<Tank>(x, y, angle, chassisTextureInfo, turretTextureInfo, scale);
 }
 
-void EntityManager::createShell(double x, double y, double angle, double scale) {
-    const auto& shellTextureInfo = m_resourceManager.getTextureInfo("shell");
-    m_shells.push_back(std::make_unique<Shell>(x, y, angle, shellTextureInfo, scale));
+void EntityManager::createProjectile(const std::string& type, double x, double y, double angle, double scale) {
+    const auto& projectileInfo = m_resourceManager.getProjectileInfo(type);
+    const auto& textureInfo = m_resourceManager.getTextureInfo(type);
+    m_projectiles.push_back(std::make_unique<Projectile>(x, y, angle, textureInfo, scale, projectileInfo.speed, projectileInfo.damage));
 }
 
 void EntityManager::update(double deltaTime) {
@@ -79,13 +96,22 @@ void EntityManager::update(double deltaTime) {
         m_playerTank->update(deltaTime);
     }
 
-    for (auto it = m_shells.begin(); it != m_shells.end();) {
+    for (auto it = m_projectiles.begin(); it != m_projectiles.end();) {
         (*it)->update(deltaTime);
         if (!(*it)->isActive()) {
-            it = m_shells.erase(it);
+            it = m_projectiles.erase(it);
         } else {
             ++it;
         }
+    }
+}
+
+void EntityManager::handlePlayerFire() {
+    if (m_playerTank) {
+        auto fireCallback = [this](const std::string& projectileType, double x, double y, double angle, double scale) {
+            this->createProjectile(projectileType, x, y, angle, scale);
+        };
+        m_playerTank->fire(fireCallback);
     }
 }
 
@@ -105,8 +131,8 @@ void EntityManager::render(SDL_Renderer* renderer) const {
         m_playerTank->render(renderer);
     }
 
-    // Render shells
-    for (const auto& shell : m_shells) {
-        shell->render(renderer);
+    // Render projectiles
+    for (const auto& projectile : m_projectiles) {
+        projectile->render(renderer);
     }
 }

@@ -27,6 +27,25 @@ void InputManager::handleInput(EntityManager& entityManager, double deltaTime) {
     }
 
     if (keystate[SDL_SCANCODE_SPACE]) {
-        playerTank->fire();
+        entityManager.handlePlayerFire();
+    }
+}
+
+void InputManager::handleEvent(SDL_Event& event, EntityManager& entityManager) {
+    Tank* playerTank = entityManager.getPlayerTank();
+    if (!playerTank) return;
+
+    switch (event.type) {
+        case SDL_KEYDOWN:
+            if (event.key.keysym.scancode == SDL_SCANCODE_R && !m_rKeyPressed) {
+                m_rKeyPressed = true;
+                playerTank->cycleCartridge();
+            }
+            break;
+        case SDL_KEYUP:
+            if (event.key.keysym.scancode == SDL_SCANCODE_R) {
+                m_rKeyPressed = false;
+            }
+            break;
     }
 }

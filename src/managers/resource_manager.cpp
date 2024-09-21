@@ -1,6 +1,7 @@
 #include "resource_manager.h"
 #include "../utils/sdl_utils.h"
 #include <iostream>
+#include <stdexcept>
 #include <filesystem>
 
 void ResourceManager::init(SDL_Renderer* renderer) {
@@ -11,7 +12,7 @@ void ResourceManager::init(SDL_Renderer* renderer) {
     loadTexture("turret", "./assets/textures/entities/vehicles/turret.png");
 
     // https://opengameart.org/content/bullet-for-ammometer
-    loadTexture("shell", "./assets/textures/entities/projectiles/shell.png");
+    // loadTexture("shell", "./assets/textures/entities/projectiles/shell.png");
 }
 
 void ResourceManager::loadTexture(const std::string& name, const char* path) {
@@ -56,4 +57,21 @@ void ResourceManager::loadMapTextures(const MapParser& mapParser) {
         std::cout << "Loading texture: " << textureName << " from " << fullPath << std::endl;
         loadTexture(textureName, fullPath.c_str());
     }
+}
+
+void ResourceManager::loadProjectileTexture(const std::string& textureName, const std::string& path) {
+    std::string fullPath = "./assets/textures/" + path;
+    loadTexture(textureName, fullPath.c_str());
+}
+
+void ResourceManager::addProjectileInfo(const std::string& name, const ProjectileProperty& property) {
+    m_projectileProperties[name] = property;
+}
+
+const ProjectileProperty& ResourceManager::getProjectileInfo(const std::string& name) const {
+    auto it = m_projectileProperties.find(name);
+    if (it != m_projectileProperties.end()) {
+        return it->second;
+    }
+    throw std::runtime_error("Projectile info not found: " + name);
 }
