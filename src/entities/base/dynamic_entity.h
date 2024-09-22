@@ -3,9 +3,15 @@
 
 #include "entity.h"
 
+/**
+ * @class DynamicEntity
+ * @brief Represents an entity with dynamic properties such as velocity and rotation.
+ *
+ * This class extends the base Entity class to include functionality for moving and rotating entities.
+ */
 class DynamicEntity : public Entity {
 public:
-    DynamicEntity(double x, double y, double angle, std::shared_ptr<TextureInfo> textureInfo, double scale = 1.0);
+    DynamicEntity(double x, double y, double angle, std::shared_ptr<TextureInfo> textureInfo, double scale);
     virtual ~DynamicEntity() = default;
 
     virtual void update(double deltaTime) override;

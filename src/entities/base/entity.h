@@ -5,6 +5,13 @@
 #include <SDL.h>
 #include <memory>
 
+/**
+ * @class Entity
+ * @brief Base class for all game entities.
+ *
+ * This class represents a basic entity in the game world, providing
+ * common functionality such as position, dimensions, and rendering.
+ */
 class Entity {
 public:
     Entity(double x, double y, std::shared_ptr<TextureInfo> textureInfo);

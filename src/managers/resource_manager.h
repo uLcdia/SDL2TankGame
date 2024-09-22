@@ -7,6 +7,13 @@
 #include <string>
 #include <memory>
 
+/**
+ * @class ResourceManager
+ * @brief Manages game resources, particularly textures.
+ *
+ * This class is responsible for loading, storing, and providing access to
+ * game textures.
+ */
 class ResourceManager {
 public:
     void init(SDL_Renderer* renderer);

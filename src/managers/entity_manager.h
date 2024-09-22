@@ -15,6 +15,13 @@
 #include <string>
 #include <unordered_map>
 
+/**
+ * @class EntityManager
+ * @brief Manages all game entities, including tanks, projectiles, and map tiles.
+ *
+ * This class is responsible for creating, updating, and rendering all game entities.
+ * It also handles level loading, including map tiles, tanks, and projectiles.
+ */
 class EntityManager {
 public:
     EntityManager(ResourceManager& resourceManager);
@@ -27,6 +34,11 @@ public:
 
     void handlePlayerFire();
 
+    /**
+     * @brief Loads a game level, including map, tanks, and projectiles.
+     * @param level The name or path of the level to load.
+     * @return True if the level was successfully loaded, false otherwise.
+     */
     bool loadLevel(const std::string& level);
 
 private:
