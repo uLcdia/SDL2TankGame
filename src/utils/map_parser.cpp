@@ -36,7 +36,7 @@ void MapParser::parseJson(const json& j) {
     for (const auto& [key, value] : j["tiles"].items()) {
         TileProperty tileProperty;
         tileProperty.name = value["name"];
-        tileProperty.texture = value["texture"];
+        tileProperty.texturePath = value["texturePath"];
 
         if (value.contains("isBrick")) {
             tileProperty.isBrick = value["isBrick"];

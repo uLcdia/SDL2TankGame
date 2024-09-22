@@ -1,13 +1,15 @@
 #ifndef TANK_H
 #define TANK_H
 
+#include "../../properties/tank_property.h"
 #include "chassis/chassis.h"
 #include "turrets/turret.h"
 #include <memory>
+#include <string>
 
 class Tank {
 public:
-    Tank(double x, double y, double angle, const TextureInfo& chassisTextureInfo, const TextureInfo& turretTextureInfo, double scale = 1.0);
+    Tank(const TankProperty& tankProperty, double x, double y, std::shared_ptr<TextureInfo> chassisTexture, std::shared_ptr<TextureInfo> turretTexture);
 
     void update(double deltaTime);
     void render(SDL_Renderer* renderer) const;
@@ -21,12 +23,19 @@ public:
     double getY() const { return m_chassis->getY(); }
     double getAngle() const { return m_chassis->getAngle(); }
 
-    void addCartridge(const std::string& cartridgeName, const std::string& projectileType, int capacity, double fireInterval, double reloadInterval);
+    void addCartridge(const Cartridge& cartridge);
     void cycleCartridge() { m_turret->cycleCartridge(); }
     
 private:
+    std::string m_name;
+
     std::unique_ptr<Chassis> m_chassis;
     std::unique_ptr<Turret> m_turret;
+
+    double m_chassisRotationSpeed;
+    double m_turretRotationSpeed;
+    
+    double m_health;
 
     bool m_isMoving;
 };

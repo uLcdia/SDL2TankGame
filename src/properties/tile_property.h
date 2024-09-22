@@ -5,7 +5,7 @@
 
 struct TileProperty {
     std::string name;
-    std::string texture;
+    std::string texturePath;
     bool isBrick = false;
     bool isVulnerable = false;
     int health = 1;

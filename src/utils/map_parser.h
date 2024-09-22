@@ -1,7 +1,7 @@
 #ifndef MAP_PARSER_H
 #define MAP_PARSER_H
 
-#include "tile_property.h"
+#include "../properties/tile_property.h"
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>

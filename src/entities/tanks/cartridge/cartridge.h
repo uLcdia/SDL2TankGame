@@ -1,14 +1,15 @@
 #ifndef CARTRIDGE_H
 #define CARTRIDGE_H
 
+#include "../../../properties/cartridge_property.h"
 #include <string>
 #include <functional>
 
 class Cartridge {
 public:
-    using FireCallback = std::function<void(const std::string&, double, double, double, double)>;
+    using FireCallback = std::function<void(const std::string&, double, double, double)>;
 
-    Cartridge(const std::string& name, const std::string& projectileType, double scale, int capacity, double fireInterval, double reloadInterval);
+    Cartridge(const CartridgeProperty& cartridgeProperty);
 
     bool fire(double x, double y, double angle, const FireCallback& fireCallback);
     void update(double deltaTime);
@@ -19,7 +20,6 @@ public:
 private:
     std::string m_name;
     std::string m_projectileType;
-    double m_scale;
     int m_capacity;
     int m_remainingShots;
     double m_fireInterval;

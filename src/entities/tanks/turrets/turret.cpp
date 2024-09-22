@@ -2,8 +2,8 @@
 #include <cmath>
 #include <algorithm>
 
-Turret::Turret(double x, double y, double angle, const TextureInfo& turretTextureInfo, double scale)
-    : DynamicEntity(x, y, angle, turretTextureInfo, scale),
+Turret::Turret(const TankProperty& tankProperty, double x, double y, std::shared_ptr<TextureInfo> textureInfo)
+    : DynamicEntity(x, y, tankProperty.angle, std::move(textureInfo), tankProperty.scale),
       m_currentCartridgeIndex(0)
 {}
 
@@ -14,8 +14,8 @@ void Turret::update(double deltaTime) {
     }
 }
 
-void Turret::addCartridge(const std::string& name, const std::string& projectileType, int capacity, double fireInterval, double reloadInterval) {
-    m_cartridges.emplace_back(name, projectileType, m_scale, capacity, fireInterval, reloadInterval);
+void Turret::addCartridge(const Cartridge& cartridge) {
+    m_cartridges.emplace_back(cartridge);
 }
 
 void Turret::cycleCartridge() {
@@ -37,9 +37,7 @@ const Cartridge* Turret::getCurrentCartridge() const {
     return m_cartridges.empty() ? nullptr : &m_cartridges[m_currentCartridgeIndex];
 }
 
-void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, bool isMoving) {
-    double rotationSpeed = isMoving ? ROTATE_SPEED * TankMovements::ROTATE_SPEED_MULTIPLIER : ROTATE_SPEED;
-
+void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, double rotationSpeed) {
     switch (rotation) {
         case TankMovements::Rotation::CLOCKWISE:
             m_angle += rotationSpeed * deltaTime;

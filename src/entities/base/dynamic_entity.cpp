@@ -1,7 +1,7 @@
 #include "dynamic_entity.h"
 
-DynamicEntity::DynamicEntity(double x, double y, double angle, const TextureInfo& textureInfo, double scale)
-    : Entity(x, y, textureInfo),
+DynamicEntity::DynamicEntity(double x, double y, double angle, std::shared_ptr<TextureInfo> textureInfo, double scale)
+    : Entity(x, y, std::move(textureInfo)),
       m_vx(0), m_vy(0), 
       m_angle(angle),
       m_scale(scale) 

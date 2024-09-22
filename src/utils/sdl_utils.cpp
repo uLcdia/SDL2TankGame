@@ -30,33 +30,14 @@ bool initSDL(SDL_Window*& window, SDL_Renderer*& renderer, const char* title, in
     return true;
 }
 
-// Load image as texture
-SDL_Texture* loadTexture(const char* path, SDL_Renderer* renderer) {
-    SDL_Texture* newTexture = nullptr;
-    // Load image at specified path
-    SDL_Surface* loadedSurface = IMG_Load(path);
-    if (loadedSurface == nullptr) {
-        std::cerr << "Unable to load image " << path << "! SDL_image Error: " << IMG_GetError() << std::endl;
-    } else {
-        // Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-        if (newTexture == nullptr) {
-            std::cerr << "Unable to create texture from " << path << "! SDL Error: " << SDL_GetError() << std::endl;
-        }
-        // Get rid of old loaded surface
-        SDL_FreeSurface(loadedSurface);
-    }
-    return newTexture;
-}
-
 // Load texture and its resolution
-TextureInfo loadTextureWithInfo(const char* path, SDL_Renderer* renderer) {
+TextureInfo loadTextureWithInfo(const std::string& path, SDL_Renderer* renderer) {
     TextureInfo info;
     info.texture = nullptr;
     info.width = 0;
     info.height = 0;
 
-    SDL_Surface* loadedSurface = IMG_Load(path);
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == nullptr) {
         std::cerr << "Unable to load image " << path << "! SDL_image Error: " << IMG_GetError() << std::endl;
     } else {

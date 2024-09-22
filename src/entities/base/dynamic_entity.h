@@ -5,7 +5,7 @@
 
 class DynamicEntity : public Entity {
 public:
-    DynamicEntity(double x, double y, double angle, const TextureInfo& textureInfo, double scale = 1.0);
+    DynamicEntity(double x, double y, double angle, std::shared_ptr<TextureInfo> textureInfo, double scale = 1.0);
     virtual ~DynamicEntity() = default;
 
     virtual void update(double deltaTime) override;

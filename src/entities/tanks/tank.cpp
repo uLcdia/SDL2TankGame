@@ -1,8 +1,12 @@
 #include "tank.h"
 
-Tank::Tank(double x, double y, double angle, const TextureInfo& chassisTextureInfo, const TextureInfo& turretTextureInfo, double scale)
-    : m_chassis(std::make_unique<Chassis>(x, y, angle, chassisTextureInfo, scale)),
-      m_turret(std::make_unique<Turret>(x, y, angle, turretTextureInfo, scale))
+Tank::Tank(const TankProperty& tankProperty, double x, double y, std::shared_ptr<TextureInfo> chassisTexture, std::shared_ptr<TextureInfo> turretTexture)
+    : m_chassis(std::make_unique<Chassis>(tankProperty, x, y, std::move(chassisTexture))),
+      m_turret(std::make_unique<Turret>(tankProperty, x, y, std::move(turretTexture))),
+      m_name(tankProperty.name),
+      m_chassisRotationSpeed(tankProperty.chassis.rotationSpeed),
+      m_turretRotationSpeed(tankProperty.turret.rotationSpeed),
+      m_health(tankProperty.health)
 {}
 
 void Tank::update(double deltaTime) {
@@ -29,19 +33,20 @@ void Tank::move(TankMovements::Movement movement, double deltaTime) {
 }
 
 void Tank::rotate(TankMovements::Rotation rotation, double deltaTime) {
-    m_chassis->rotate(rotation, deltaTime, m_isMoving);
-    m_turret->rotate(rotation, deltaTime, m_isMoving);
+    double rotationSpeed = m_isMoving ? m_chassisRotationSpeed * TankMovements::ROTATE_SPEED_MULTIPLIER : m_chassisRotationSpeed;
+    m_chassis->rotate(rotation, deltaTime, rotationSpeed);
+    m_turret->rotate(rotation, deltaTime, rotationSpeed);
 }
 
 void Tank::rotateTurret(TankMovements::Rotation rotation, double deltaTime) {
     // Turrent rotation should be independent of chassis rotation
-    m_turret->rotate(rotation, deltaTime, false);
+    m_turret->rotate(rotation, deltaTime, m_turretRotationSpeed);
 }
 
 void Tank::fire(const Cartridge::FireCallback& fireCallback) {
     m_turret->fire(fireCallback);
 }
 
-void Tank::addCartridge(const std::string& name, const std::string& projectileType, int capacity, double fireInterval, double reloadInterval) {
-    m_turret->addCartridge(name, projectileType, capacity, fireInterval, reloadInterval);
+void Tank::addCartridge(const Cartridge& cartridge) {
+    m_turret->addCartridge(cartridge);
 }

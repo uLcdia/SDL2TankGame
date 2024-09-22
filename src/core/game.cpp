@@ -33,8 +33,8 @@ bool Game::init() {
     // Initialize EntityManager
     m_entityManager = std::make_unique<EntityManager>(m_resourceManager);
 
-    if (!m_entityManager->loadMap("assets/levels/level1/map.json")) {
-        std::cerr << "Failed to load map!" << std::endl;
+    if (!m_entityManager->loadLevel("level1")) {
+        std::cerr << "Failed to load level!" << std::endl;
         return false;
     }
 
@@ -90,7 +90,7 @@ void Game::render() {
     
     // Render background
     const auto& backgroundInfo = m_resourceManager.getTextureInfo("background");
-    SDL_RenderCopy(m_renderer, backgroundInfo.texture, nullptr, nullptr);
+    SDL_RenderCopy(m_renderer, backgroundInfo->texture, nullptr, nullptr);
     
     // Render entities
     m_entityManager->render(m_renderer);

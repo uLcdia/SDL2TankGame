@@ -1,14 +1,14 @@
 #include "cartridge.h"
 
-Cartridge::Cartridge(const std::string& name, const std::string& projectileType, double scale, int capacity, double fireInterval, double reloadInterval)
-    : m_name(name), m_projectileType(projectileType), m_scale(scale), m_capacity(capacity), m_remainingShots(capacity),
-      m_fireInterval(fireInterval), m_reloadInterval(reloadInterval),
-      m_fireTimer(0), m_reloadTimer(0)
+Cartridge::Cartridge(const CartridgeProperty& cartridgeProperty)
+    : m_name(cartridgeProperty.name), m_projectileType(cartridgeProperty.projectileType), m_capacity(cartridgeProperty.capacity),
+      m_fireInterval(cartridgeProperty.fireInterval), m_reloadInterval(cartridgeProperty.reloadInterval),
+      m_remainingShots(cartridgeProperty.capacity), m_fireTimer(0), m_reloadTimer(0)
 {}
 
 bool Cartridge::fire(double x, double y, double angle, const FireCallback& fireCallback) {
     if (m_remainingShots > 0 && m_fireTimer <= 0) {
-        fireCallback(m_projectileType, x, y, angle, m_scale);
+        fireCallback(m_projectileType, x, y, angle);
         m_remainingShots--;
         m_fireTimer = m_fireInterval;
         if (m_remainingShots == 0) {

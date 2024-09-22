@@ -5,7 +5,7 @@
 
 class StaticEntity : public Entity {
 public:
-    StaticEntity(double x, double y, const TextureInfo& textureInfo);
+    StaticEntity(double x, double y, std::shared_ptr<TextureInfo> textureInfo);
     virtual ~StaticEntity() = default;
 
     virtual void update(double deltaTime) override;

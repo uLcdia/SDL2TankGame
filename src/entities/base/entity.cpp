@@ -1,8 +1,8 @@
 #include "entity.h"
 #include <SDL.h>
 
-Entity::Entity(double x, double y, const TextureInfo& textureInfo)
-    : m_x(x), m_y(y), m_textureInfo(&textureInfo) {}
+Entity::Entity(double x, double y, std::shared_ptr<TextureInfo> textureInfo)
+    : m_x(x), m_y(y), m_textureInfo(std::move(textureInfo)) {}
 
 void Entity::render(SDL_Renderer* renderer) const {
     SDL_Rect destRect = getRect();

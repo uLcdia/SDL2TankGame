@@ -6,32 +6,32 @@
   "tiles": {
     "w": {
       "name": "wall",
-      "texture": "tiles/bricks/wall.png",
+      "texturePath": "tiles/bricks/wall.png",
       "isBrick": true,
       "isVulnerable": false
     },
     "a": {
       "name": "brick_a",
-      "texture": "tiles/bricks/brick_a.png",
+      "texturePath": "tiles/bricks/brick_a.png",
       "isBrick": true,
       "isVulnerable": true,
       "health": 20
     },
     "b": {
       "name": "brick_b",
-      "texture": "tiles/bricks/brick_b.png",
+      "texturePath": "tiles/bricks/brick_b.png",
       "isBrick": true,
       "isVulnerable": true,
       "health": 30
     },
     "M": {
       "name": "mud",
-      "texture": "tiles/ground/mud.png",
+      "texturePath": "tiles/ground/mud.png",
       "isBrick": false
     },
     "G": {
       "name": "grass",
-      "texture": "tiles/ground/grass.png",
+      "texturePath": "tiles/ground/grass.png",
       "isBrick": false
     }
   },

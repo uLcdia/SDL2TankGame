@@ -5,7 +5,7 @@
 
 class Brick : public StaticEntity {
 public:
-    Brick(double x, double y, const TextureInfo& textureInfo, int health, bool vulnerable);
+    Brick(double x, double y, std::shared_ptr<TextureInfo> textureInfo, int health, bool vulnerable);
     bool hit();
     bool isDestroyed() const;
 

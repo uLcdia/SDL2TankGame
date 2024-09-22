@@ -1,0 +1,108 @@
+{
+    "player": {
+        "name": "player",
+        "health": 100,
+        "position": {
+            "x": 20,
+            "y": 10
+        },
+        "angle": 0,
+        "scale": 0.5,
+        "chassis": {
+            "name": "chassis",
+            "texturePath": "entities/vehicles/chassis.png",
+            "speed": 100,
+            "rotationSpeed": 100
+        },
+        "turret": {
+            "name": "turret",
+            "texturePath": "entities/vehicles/turret.png",
+            "rotationSpeed": 150
+        },
+        "cartridges": [
+            {
+                "name": "shell",
+                "projectileType": "shell",
+                "fireInterval": 0.5,
+                "reloadInterval": 1.0,
+                "capacity": 5
+            },
+            {
+                "name": "magazine",
+                "projectileType": "bullet",
+                "fireInterval": 0.1,
+                "reloadInterval": 0.2,
+                "capacity": 30
+            }
+        ]
+    },
+    "enemies": [
+        {
+            "name": "enemy_1",
+            "health": 50,
+            "position": {
+                "x": 35,
+                "y": 15
+            },
+            "angle": 45,
+            "scale": 0.5,
+            "chassis": {
+                "name": "chassis",
+                "texturePath": "entities/vehicles/chassis.png",
+                "speed": 50,
+                "rotationSpeed": 50
+            },
+            "turret": {
+                "name": "turret",
+                "texturePath": "entities/vehicles/turret.png",
+                "rotationSpeed": 100
+            },
+            "cartridges": [
+                {
+                    "name": "shell",
+                    "projectileType": "shell",
+                    "fireInterval": 0.5,
+                    "reloadInterval": 1.0,
+                    "capacity": 5
+                },
+                {
+                    "name": "magazine",
+                    "projectileType": "bullet",
+                    "fireInterval": 0.1,
+                    "reloadInterval": 0.2,
+                    "capacity": 30
+                }
+            ]
+        },
+        {
+            "name": "enemy_2",
+            "health": 100,
+            "position": {
+                "x": 45,
+                "y": 20
+            },
+            "angle": 90,
+            "scale": 0.8,
+            "chassis": {
+                "name": "chassis",
+                "texturePath": "entities/vehicles/chassis.png",
+                "speed": 25,
+                "rotationSpeed": 25
+            },
+            "turret": {
+                "name": "turret",
+                "texturePath": "entities/vehicles/turret.png",
+                "rotationSpeed": 100
+            },
+            "cartridges": [
+                {
+                    "name": "shell",
+                    "projectileType": "shell",
+                    "fireInterval": 0.5,
+                    "reloadInterval": 1.0,
+                    "capacity": 5
+                }
+            ]
+        }
+    ]
+}

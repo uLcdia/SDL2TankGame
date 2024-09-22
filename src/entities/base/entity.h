@@ -3,10 +3,11 @@
 
 #include "../../utils/texture_info.h"
 #include <SDL.h>
+#include <memory>
 
 class Entity {
 public:
-    Entity(double x, double y, const TextureInfo& textureInfo);
+    Entity(double x, double y, std::shared_ptr<TextureInfo> textureInfo);
     virtual ~Entity() = default;
 
     virtual void update(double deltaTime) = 0;
@@ -26,7 +27,7 @@ public:
 
 protected:
     double m_x, m_y;
-    const TextureInfo* m_textureInfo;
+    std::shared_ptr<TextureInfo> m_textureInfo;
 };
 
 #endif // ENTITY_H

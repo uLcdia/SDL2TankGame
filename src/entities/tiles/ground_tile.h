@@ -5,7 +5,7 @@
 
 class GroundTile : public StaticEntity {
 public:
-    GroundTile(double x, double y, const TextureInfo& textureInfo);
+    GroundTile(double x, double y, std::shared_ptr<TextureInfo> textureInfo);
 };
 
 #endif // GROUND_TILE_H

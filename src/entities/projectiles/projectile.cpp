@@ -1,8 +1,9 @@
 #include "projectile.h"
 #include <cmath>
 
-Projectile::Projectile(double x, double y, double angle, const TextureInfo& textureInfo, double scale, double speed, double damage)
-    : DynamicEntity(x, y, angle, textureInfo, scale), m_active(true), m_speed(speed), m_damage(damage)
+Projectile::Projectile(const ProjectileProperty& projectileProperty, double x, double y, double angle, std::shared_ptr<TextureInfo> textureInfo)
+    : DynamicEntity(x, y, angle, std::move(textureInfo), projectileProperty.scale),
+      m_active(true), m_speed(projectileProperty.speed), m_damage(projectileProperty.damage)
 {
     // Projectile is fired when created
     double vx = std::sin(m_angle * M_PI / 180.0) * m_speed;
