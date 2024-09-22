@@ -4,7 +4,7 @@ StaticEntity::StaticEntity(double x, double y, std::shared_ptr<TextureInfo> text
     : Entity(x, y, std::move(textureInfo))
 {}
 
-void StaticEntity::update(double deltaTime)
+void StaticEntity::update([[maybe_unused]] double deltaTime)
 {}
 
 void StaticEntity::render(SDL_Renderer* renderer) const {

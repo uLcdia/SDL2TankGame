@@ -14,16 +14,16 @@ public:
     void update(double deltaTime);
     void render(SDL_Renderer* renderer) const;
 
-    void move(TankMovements::Movement movement, double deltaTime);
+    void move(TankMovements::Movement movement);
     void rotate(TankMovements::Rotation rotation, double deltaTime);
     void rotateTurret(TankMovements::Rotation rotation, double deltaTime);
-    void fire(const Cartridge::FireCallback& fireCallback);
+    void fire(const Cartridge::FireCallback& fireCallback) { m_turret->fire(fireCallback); }
 
     double getX() const { return m_chassis->getX(); }
     double getY() const { return m_chassis->getY(); }
     double getAngle() const { return m_chassis->getAngle(); }
 
-    void addCartridge(const Cartridge& cartridge);
+    void addCartridge(const Cartridge& cartridge) { m_turret->addCartridge(cartridge); }
     void cycleCartridge() { m_turret->cycleCartridge(); }
     
 private:

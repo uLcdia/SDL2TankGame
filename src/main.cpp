@@ -1,7 +1,7 @@
 #define SDL_MAIN_HANDLED
 #include "core/game.h"
 
-int main(int argc, char* args[]) {
+int main() {
     // Define game window resolution and title
     const int WIDTH = 1600;
     const int HEIGHT = 960;

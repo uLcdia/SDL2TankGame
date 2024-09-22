@@ -19,8 +19,6 @@ class EntityManager {
 public:
     EntityManager(ResourceManager& resourceManager);
 
-    bool loadLevel(const std::string& level);
-
     void update(double deltaTime);
     void render(SDL_Renderer* renderer) const;
 
@@ -28,6 +26,8 @@ public:
     const std::vector<std::unique_ptr<Tank>>& getEnemyTanks() const { return m_enemyTanks; }
 
     void handlePlayerFire();
+
+    bool loadLevel(const std::string& level);
 
 private:
     bool loadMap(const std::string& mapFilePath);

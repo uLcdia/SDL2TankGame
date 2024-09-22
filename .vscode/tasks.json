@@ -6,6 +6,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
+                "-std=c++23",
                 "-g",
                 "-o",
                 "${workspaceFolder}/${workspaceFolderBasename}",

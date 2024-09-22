@@ -75,9 +75,6 @@ void Game::handleEvents() {
 
 // Update game state
 void Game::update(double deltaTime) {
-    // Get current keyboard state
-    const Uint8* keystate = SDL_GetKeyboardState(NULL);
-
     m_entityManager->update(deltaTime);
     m_inputManager.handleInput(*m_entityManager, deltaTime);
 }

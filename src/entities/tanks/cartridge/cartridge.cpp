@@ -6,19 +6,6 @@ Cartridge::Cartridge(const CartridgeProperty& cartridgeProperty)
       m_remainingShots(cartridgeProperty.capacity), m_fireTimer(0), m_reloadTimer(0)
 {}
 
-bool Cartridge::fire(double x, double y, double angle, const FireCallback& fireCallback) {
-    if (m_remainingShots > 0 && m_fireTimer <= 0) {
-        fireCallback(m_projectileType, x, y, angle);
-        m_remainingShots--;
-        m_fireTimer = m_fireInterval;
-        if (m_remainingShots == 0) {
-            m_reloadTimer = m_reloadInterval;
-        }
-        return true;
-    }
-    return false;
-}
-
 void Cartridge::update(double deltaTime) {
     if (m_fireTimer > 0) {
         m_fireTimer -= deltaTime;
@@ -32,4 +19,18 @@ void Cartridge::update(double deltaTime) {
             }
         }
     }
+}
+
+
+bool Cartridge::fire(double x, double y, double angle, const FireCallback& fireCallback) {
+    if (m_remainingShots > 0 && m_fireTimer <= 0) {
+        fireCallback(m_projectileType, x, y, angle);
+        m_remainingShots--;
+        m_fireTimer = m_fireInterval;
+        if (m_remainingShots == 0) {
+            m_reloadTimer = m_reloadInterval;
+        }
+        return true;
+    }
+    return false;
 }

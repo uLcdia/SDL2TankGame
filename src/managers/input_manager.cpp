@@ -7,11 +7,11 @@ void InputManager::handleInput(EntityManager& entityManager, double deltaTime) {
     if (!playerTank) return;
 
     if (keystate[SDL_SCANCODE_W]) {
-        playerTank->move(TankMovements::Movement::FORWARD, deltaTime);
+        playerTank->move(TankMovements::Movement::FORWARD);
     } else if (keystate[SDL_SCANCODE_S]) {
-        playerTank->move(TankMovements::Movement::BACKWARD, deltaTime);
+        playerTank->move(TankMovements::Movement::BACKWARD);
     } else {
-        playerTank->move(TankMovements::Movement::NONE, deltaTime);
+        playerTank->move(TankMovements::Movement::NONE);
     }
 
     if (keystate[SDL_SCANCODE_A]) {

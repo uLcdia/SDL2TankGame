@@ -11,7 +11,7 @@ class Chassis : public DynamicEntity {
 public:
     Chassis(const TankProperty& tankProperty, double x, double y, std::shared_ptr<TextureInfo> textureInfo);
 
-    void move(TankMovements::Movement movement, double deltaTime);
+    void move(TankMovements::Movement movement);
     void rotate(TankMovements::Rotation rotation, double deltaTime, double rotationSpeed);
 
 private:

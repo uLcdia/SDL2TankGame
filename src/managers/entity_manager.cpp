@@ -6,6 +6,61 @@ EntityManager::EntityManager(ResourceManager& resourceManager)
     : m_resourceManager(resourceManager), m_playerTank(nullptr)
 {}
 
+void EntityManager::update(double deltaTime) {
+    if (m_playerTank) {
+        m_playerTank->update(deltaTime);
+    }
+
+    for (auto& enemyTank : m_enemyTanks) {
+        enemyTank->update(deltaTime);
+    }
+
+    for (auto it = m_projectiles.begin(); it != m_projectiles.end();) {
+        (*it)->update(deltaTime);
+        if (!(*it)->isActive()) {
+            it = m_projectiles.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
+
+void EntityManager::render(SDL_Renderer* renderer) const {
+    // Render ground tiles
+    for (const auto& groundTile : m_groundTiles) {
+        groundTile->render(renderer);
+    }
+
+    // Render bricks
+    for (const auto& brick : m_bricks) {
+        brick->render(renderer);
+    }
+
+    // Render player tank
+    if (m_playerTank) {
+        m_playerTank->render(renderer);
+    }
+
+    // Render enemy tanks
+    for (const auto& enemyTank : m_enemyTanks) {
+        enemyTank->render(renderer);
+    }
+
+    // Render projectiles
+    for (const auto& projectile : m_projectiles) {
+        projectile->render(renderer);
+    }
+}
+
+void EntityManager::handlePlayerFire() {
+    if (m_playerTank) {
+        auto fireCallback = [this](const std::string& projectileType, double x, double y, double angle) {
+            this->createProjectile(projectileType, x, y, angle);
+        };
+        m_playerTank->fire(fireCallback);
+    }
+}
+
 bool EntityManager::loadLevel(const std::string& level) {
     std::string mapFilePath = "assets/levels/" + level + "/map.json";
     std::string tanksFilePath = "assets/levels/" + level + "/tanks.json";
@@ -125,59 +180,4 @@ void EntityManager::createProjectile(const std::string& type, double x, double y
     const auto& projectileInfo = m_projectileProperties.at(type);
     auto textureInfo = m_resourceManager.getTextureInfo(type);
     m_projectiles.emplace_back(std::make_unique<Projectile>(projectileInfo, x, y, angle, std::move(textureInfo)));
-}
-
-void EntityManager::update(double deltaTime) {
-    if (m_playerTank) {
-        m_playerTank->update(deltaTime);
-    }
-
-    for (auto& enemyTank : m_enemyTanks) {
-        enemyTank->update(deltaTime);
-    }
-
-    for (auto it = m_projectiles.begin(); it != m_projectiles.end();) {
-        (*it)->update(deltaTime);
-        if (!(*it)->isActive()) {
-            it = m_projectiles.erase(it);
-        } else {
-            ++it;
-        }
-    }
-}
-
-void EntityManager::handlePlayerFire() {
-    if (m_playerTank) {
-        auto fireCallback = [this](const std::string& projectileType, double x, double y, double angle) {
-            this->createProjectile(projectileType, x, y, angle);
-        };
-        m_playerTank->fire(fireCallback);
-    }
-}
-
-void EntityManager::render(SDL_Renderer* renderer) const {
-    // Render ground tiles
-    for (const auto& groundTile : m_groundTiles) {
-        groundTile->render(renderer);
-    }
-
-    // Render bricks
-    for (const auto& brick : m_bricks) {
-        brick->render(renderer);
-    }
-
-    // Render player tank
-    if (m_playerTank) {
-        m_playerTank->render(renderer);
-    }
-
-    // Render enemy tanks
-    for (const auto& enemyTank : m_enemyTanks) {
-        enemyTank->render(renderer);
-    }
-
-    // Render projectiles
-    for (const auto& projectile : m_projectiles) {
-        projectile->render(renderer);
-    }
 }

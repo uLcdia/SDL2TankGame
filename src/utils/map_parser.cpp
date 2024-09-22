@@ -53,7 +53,7 @@ void MapParser::parseJson(const json& j) {
 
     m_mapLayout = j["layout"].get<std::vector<std::string>>();
 
-    if (m_mapLayout.size() != m_height || m_mapLayout[0].size() != m_width) {
+    if (std::ssize(m_mapLayout) != m_height || std::ssize(m_mapLayout[0]) != m_width) {
         throw std::runtime_error("Map dimensions do not match the layout");
     }
 

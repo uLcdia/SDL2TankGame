@@ -14,42 +14,6 @@ void Turret::update(double deltaTime) {
     }
 }
 
-void Turret::addCartridge(const Cartridge& cartridge) {
-    m_cartridges.emplace_back(cartridge);
-}
-
-void Turret::cycleCartridge() {
-    if (!m_cartridges.empty()) {
-        m_currentCartridgeIndex = (m_currentCartridgeIndex + 1) % m_cartridges.size();
-    }
-}
-
-void Turret::fire(const Cartridge::FireCallback& fireCallback) {
-    if (!m_cartridges.empty()) {
-        double spawnDistance = PROJECTILE_SPAWN_DISTANCE * m_scale;
-        double shellX = getX() + std::sin(m_angle * M_PI / 180.0) * spawnDistance;
-        double shellY = getY() - std::cos(m_angle * M_PI / 180.0) * spawnDistance;
-        m_cartridges[m_currentCartridgeIndex].fire(shellX, shellY, m_angle, fireCallback);
-    }
-}
-
-const Cartridge* Turret::getCurrentCartridge() const {
-    return m_cartridges.empty() ? nullptr : &m_cartridges[m_currentCartridgeIndex];
-}
-
-void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, double rotationSpeed) {
-    switch (rotation) {
-        case TankMovements::Rotation::CLOCKWISE:
-            m_angle += rotationSpeed * deltaTime;
-            break;
-        case TankMovements::Rotation::COUNTERCLOCKWISE:
-            m_angle -= rotationSpeed * deltaTime;
-            break;
-    }
-
-    m_angle = fmod(m_angle + 360.0, 360.0);
-}
-
 void Turret::render(SDL_Renderer* renderer) const {
     // Calculate the position of the turret's pivot point
     double turretPivotX = getScaledWidth() * 0.5;
@@ -68,4 +32,40 @@ void Turret::render(SDL_Renderer* renderer) const {
 
     // Render the turret
     SDL_RenderCopyEx(renderer, m_textureInfo->texture, nullptr, &turretRect, m_angle, &turretPivot, SDL_FLIP_NONE);
+}
+
+void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, double rotationSpeed) {
+    switch (rotation) {
+        case TankMovements::Rotation::CLOCKWISE:
+            m_angle += rotationSpeed * deltaTime;
+            break;
+        case TankMovements::Rotation::COUNTERCLOCKWISE:
+            m_angle -= rotationSpeed * deltaTime;
+            break;
+    }
+
+    m_angle = fmod(m_angle + 360.0, 360.0);
+}
+
+void Turret::fire(const Cartridge::FireCallback& fireCallback) {
+    if (!m_cartridges.empty()) {
+        double spawnDistance = PROJECTILE_SPAWN_DISTANCE * m_scale;
+        double shellX = getX() + std::sin(m_angle * M_PI / 180.0) * spawnDistance;
+        double shellY = getY() - std::cos(m_angle * M_PI / 180.0) * spawnDistance;
+        m_cartridges[m_currentCartridgeIndex].fire(shellX, shellY, m_angle, fireCallback);
+    }
+}
+
+void Turret::addCartridge(const Cartridge& cartridge) {
+    m_cartridges.emplace_back(cartridge);
+}
+
+void Turret::cycleCartridge() {
+    if (!m_cartridges.empty()) {
+        m_currentCartridgeIndex = (m_currentCartridgeIndex + 1) % m_cartridges.size();
+    }
+}
+
+const Cartridge* Turret::getCurrentCartridge() const {
+    return m_cartridges.empty() ? nullptr : &m_cartridges[m_currentCartridgeIndex];
 }

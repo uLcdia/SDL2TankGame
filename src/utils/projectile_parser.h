@@ -18,9 +18,9 @@ private:
 
     std::vector<ProjectileProperty> m_projectiles;
 
-    ProjectileProperty parseProjectile(const nlohmann::json& j);
-
     void parseJson(const nlohmann::json& j);
+
+    ProjectileProperty parseProjectile(const nlohmann::json& j);
 };
 
 #endif // PROJECTILE_PARSER_H
