@@ -29,10 +29,17 @@ public:
 
     virtual SDL_Rect getRect() const override;
 
+    virtual std::array<SDL_Point, 4> getVertices() const override;
+
+    bool collidesWith(const Entity& other) const;
+    bool collidesWith(const DynamicEntity& other) const;
+
 protected:
     double m_vx, m_vy;
     double m_angle;
     double m_scale;
+
+    bool checkSATCollision(const Entity& other) const;
 };
 
 #endif // DYNAMIC_ENTITY_H

@@ -47,6 +47,9 @@ void MapParser::parseJson(const json& j) {
         if (value.contains("health")) {
             tileProperty.health = value["health"];
         }
+        if (value.contains("tileSpeedMultiplier")) {
+            tileProperty.tileSpeedMultiplier = value["tileSpeedMultiplier"];
+        }
 
         m_tileProperties[key[0]] = tileProperty;
     }

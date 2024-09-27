@@ -7,6 +7,9 @@
             "command": "g++",
             "args": [
                 "-std=c++23",
+                "-Wall",
+                "-Wextra",
+                "-pedantic",
                 "-g",
                 "-o",
                 "${workspaceFolder}/${workspaceFolderBasename}",

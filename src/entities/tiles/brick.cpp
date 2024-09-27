@@ -4,14 +4,8 @@ Brick::Brick(double x, double y, std::shared_ptr<TextureInfo> textureInfo, int h
     : StaticEntity(x, y, std::move(textureInfo)), m_health(health), m_vulnerable(vulnerable)
 {}
 
-bool Brick::hit() {
-    if (m_vulnerable) {
-        m_health--;
-        return m_health <= 0;
+void Brick::damage(double damage) {
+    if (m_vulnerable && isAlive()) {
+        m_health -= damage;
     }
-    return false;
-}
-
-bool Brick::isDestroyed() const {
-    return m_health <= 0;
 }

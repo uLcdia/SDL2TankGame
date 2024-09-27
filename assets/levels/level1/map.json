@@ -8,31 +8,38 @@
       "name": "wall",
       "texturePath": "tiles/bricks/wall.png",
       "isBrick": true,
-      "isVulnerable": false
+      "isVulnerable": false,
+      "health": 1
     },
     "a": {
       "name": "brick_a",
       "texturePath": "tiles/bricks/brick_a.png",
       "isBrick": true,
       "isVulnerable": true,
-      "health": 20
+      "health": 5
     },
     "b": {
       "name": "brick_b",
       "texturePath": "tiles/bricks/brick_b.png",
       "isBrick": true,
       "isVulnerable": true,
-      "health": 30
+      "health": 10
     },
     "M": {
       "name": "mud",
       "texturePath": "tiles/ground/mud.png",
-      "isBrick": false
+      "isBrick": false,
+      "isVulnerable": false,
+      "health": 1,
+      "tileSpeedMultiplier": 0.5
     },
     "G": {
       "name": "grass",
       "texturePath": "tiles/ground/grass.png",
-      "isBrick": false
+      "isBrick": false,
+      "isVulnerable": false,
+      "health": 1,
+      "tileSpeedMultiplier": 1.2
     }
   },
   "layout": [

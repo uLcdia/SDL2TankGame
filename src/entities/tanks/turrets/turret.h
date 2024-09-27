@@ -17,7 +17,7 @@ public:
 
     void rotate(TankMovements::Rotation rotation, double deltaTime, double rotationSpeed);
 
-    void fire(const Cartridge::FireCallback& fireCallback);
+    void fire(const Cartridge::FireCallback& fireCallback, std::string shooter);
 
     void addCartridge(const Cartridge& cartridge);
     void cycleCartridge();

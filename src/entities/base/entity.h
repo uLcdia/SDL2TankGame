@@ -4,6 +4,7 @@
 #include "../../utils/texture_info.h"
 #include <SDL.h>
 #include <memory>
+#include <array>
 
 /**
  * @class Entity
@@ -28,9 +29,11 @@ public:
     int getWidth() const { return m_textureInfo->width; }
     int getHeight() const { return m_textureInfo->height; }
 
-    virtual bool collidesWith(const Entity& other) const;
-
     virtual SDL_Rect getRect() const;
+
+    virtual std::array<SDL_Point, 4> getVertices() const;
+
+    void renderEdges(SDL_Renderer* renderer) const;
 
 protected:
     double m_x, m_y;

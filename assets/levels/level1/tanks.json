@@ -11,13 +11,13 @@
         "chassis": {
             "name": "chassis",
             "texturePath": "entities/vehicles/chassis.png",
-            "speed": 100,
-            "rotationSpeed": 100
+            "speed": 150,
+            "rotationSpeed": 150
         },
         "turret": {
             "name": "turret",
             "texturePath": "entities/vehicles/turret.png",
-            "rotationSpeed": 150
+            "rotationSpeed": 200
         },
         "cartridges": [
             {

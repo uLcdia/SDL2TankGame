@@ -9,6 +9,7 @@ struct TileProperty {
     bool isBrick = false;
     bool isVulnerable = false;
     int health = 1;
+    double tileSpeedMultiplier = 1.0;
 };
 
 #endif // TILE_PROPERTY_H

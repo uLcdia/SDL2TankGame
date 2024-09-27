@@ -29,10 +29,22 @@ public:
     void update(double deltaTime);
     void render(SDL_Renderer* renderer) const;
 
-    Tank* getPlayerTank() { return m_playerTank.get(); }
-    const std::vector<std::unique_ptr<Tank>>& getEnemyTanks() const { return m_enemyTanks; }
+    Tank& getPlayerTank() { return *m_playerTank; }
+    const Tank& getPlayerTank() const { return *m_playerTank; }
+    Tank& getEnemyTank(std::size_t index) { return *m_enemyTanks[index]; }
+    const Tank& getEnemyTank(std::size_t index) const { return *m_enemyTanks[index]; }
 
-    void handlePlayerFire();
+    std::string getTankName(const Tank& tank) const;
+    double getTankHealth(const Tank& tank) const;
+    bool getTankIsAlive(const Tank& tank) const;
+    
+    void handleTankMovement(Tank& tank, TankMovements::Movement movement);
+    void handleTankRotation(Tank& tank, TankMovements::Rotation rotation, double deltaTime);
+    void handleTankTurretRotation(Tank& tank, TankMovements::Rotation rotation, double deltaTime);
+    void handleTankCycleCartridge(Tank& tank);
+    void handleTankFire(Tank& tank);
+    void handleTankDamage(Tank& tank, double damage);
+    void handleTankHeal(Tank& tank, double health);
 
     /**
      * @brief Loads a game level, including map, tanks, and projectiles.
@@ -49,7 +61,12 @@ private:
     std::unique_ptr<Tank> createTank(const TankProperty& tankProperty);
     bool loadProjectiles(const std::string& projectilesFilePath);
 
-    void createProjectile(const std::string& type, double x, double y, double angle);
+    void createProjectile(const std::string& type, double x, double y, double angle, std::string shooter);
+
+    double getTileSpeedMultiplier(Tank& tank) const;
+
+    void handleUpdate(Tank& tank, double deltaTime, bool isPlayer);
+    void handleUpdate(Projectile& projectile, double deltaTime);
 
     ResourceManager& m_resourceManager;
 

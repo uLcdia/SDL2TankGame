@@ -8,13 +8,13 @@ Chassis::Chassis(const TankProperty& tankProperty, double x, double y, std::shar
       m_rotationSpeed(tankProperty.chassis.rotationSpeed)
 {}
 
-void Chassis::move(TankMovements::Movement movement) {
+void Chassis::move(TankMovements::Movement movement, double tileSpeedMultiplier) {
     switch (movement) {
         case TankMovements::Movement::FORWARD:
-            setVelocity(std::sin(m_angle * M_PI / 180.0) * m_speed, -std::cos(m_angle * M_PI / 180.0) * m_speed);
+            setVelocity(std::sin(m_angle * M_PI / 180.0) * m_speed * tileSpeedMultiplier, -std::cos(m_angle * M_PI / 180.0) * m_speed * tileSpeedMultiplier);
             break;
         case TankMovements::Movement::BACKWARD:
-            setVelocity(-std::sin(m_angle * M_PI / 180.0) * m_speed, std::cos(m_angle * M_PI / 180.0) * m_speed);
+            setVelocity(-std::sin(m_angle * M_PI / 180.0) * m_speed * tileSpeedMultiplier, std::cos(m_angle * M_PI / 180.0) * m_speed * tileSpeedMultiplier);
             break;
         case TankMovements::Movement::NONE:
             setVelocity(0, 0);
@@ -29,6 +29,8 @@ void Chassis::rotate(TankMovements::Rotation rotation, double deltaTime, double 
             break;
         case TankMovements::Rotation::COUNTERCLOCKWISE:
             m_angle -= rotationSpeed * deltaTime;
+            break;
+        case TankMovements::Rotation::NONE:
             break;
     }
 
