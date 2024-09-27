@@ -13,17 +13,17 @@ void InputManager::handleInput(EntityManager& entityManager, double deltaTime) {
     }
 
     if (keystate[SDL_SCANCODE_A]) {
-        entityManager.handleTankRotation(playerTank, TankMovements::Rotation::COUNTERCLOCKWISE, deltaTime);
+        entityManager.handleTankRotation(playerTank, TankMovements::Rotation::COUNTERCLOCKWISE);
     } else if (keystate[SDL_SCANCODE_D]) {
-        entityManager.handleTankRotation(playerTank, TankMovements::Rotation::CLOCKWISE, deltaTime);
+        entityManager.handleTankRotation(playerTank, TankMovements::Rotation::CLOCKWISE);
     } else {
-        entityManager.handleTankRotation(playerTank, TankMovements::Rotation::NONE, deltaTime);
+        entityManager.handleTankRotation(playerTank, TankMovements::Rotation::NONE);
     }
 
     if (keystate[SDL_SCANCODE_Q]) {
-        entityManager.handleTankTurretRotation(playerTank, TankMovements::Rotation::COUNTERCLOCKWISE, deltaTime);
+        entityManager.handleTankTurretRotation(playerTank, TankMovements::Rotation::COUNTERCLOCKWISE);
     } else if (keystate[SDL_SCANCODE_E]) {
-        entityManager.handleTankTurretRotation(playerTank, TankMovements::Rotation::CLOCKWISE, deltaTime);
+        entityManager.handleTankTurretRotation(playerTank, TankMovements::Rotation::CLOCKWISE);
     }
 
     if (keystate[SDL_SCANCODE_SPACE]) {

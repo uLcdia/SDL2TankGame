@@ -34,13 +34,13 @@ void Turret::render(SDL_Renderer* renderer) const {
     SDL_RenderCopyEx(renderer, m_textureInfo->texture, nullptr, &turretRect, m_angle, &turretPivot, SDL_FLIP_NONE);
 }
 
-void Turret::rotate(TankMovements::Rotation rotation, double deltaTime, double rotationSpeed) {
+void Turret::rotate(TankMovements::Rotation rotation, double rotationSpeed) {
     switch (rotation) {
         case TankMovements::Rotation::CLOCKWISE:
-            m_angle += rotationSpeed * deltaTime;
+            setRotationSpeed(rotationSpeed);
             break;
         case TankMovements::Rotation::COUNTERCLOCKWISE:
-            m_angle -= rotationSpeed * deltaTime;
+            setRotationSpeed(-rotationSpeed);
             break;
         case TankMovements::Rotation::NONE:
             break;

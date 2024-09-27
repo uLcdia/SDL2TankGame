@@ -90,12 +90,12 @@ void EntityManager::handleTankMovement(Tank& tank, TankMovements::Movement movem
     tank.move(movement, getTileSpeedMultiplier(tank));
 }
 
-void EntityManager::handleTankRotation(Tank& tank, TankMovements::Rotation rotation, double deltaTime) {
-    tank.rotate(rotation, deltaTime, getTileSpeedMultiplier(tank));
+void EntityManager::handleTankRotation(Tank& tank, TankMovements::Rotation rotation) {
+    tank.rotate(rotation, getTileSpeedMultiplier(tank));
 }
 
-void EntityManager::handleTankTurretRotation(Tank& tank, TankMovements::Rotation rotation, double deltaTime) {
-    tank.rotateTurret(rotation, deltaTime);
+void EntityManager::handleTankTurretRotation(Tank& tank, TankMovements::Rotation rotation) {
+    tank.rotateTurret(rotation);
 }
 
 void EntityManager::handleTankCycleCartridge(Tank& tank) {
@@ -251,6 +251,8 @@ double EntityManager::getTileSpeedMultiplier(Tank& tank) const {
 void EntityManager::handleUpdate(Tank& tank, double deltaTime, bool isPlayer) {
     double prevPositionX = tank.getX();
     double prevPositionY = tank.getY();
+    double prevAngle = tank.getAngle();
+    double prevTurretAngle = tank.getTurretAngle();
 
     tank.update(deltaTime);
 
@@ -278,11 +280,8 @@ void EntityManager::handleUpdate(Tank& tank, double deltaTime, bool isPlayer) {
         tank.setX(prevPositionX);
         tank.setY(prevPositionY);
         
-        if (tank.getLastRotation() == TankMovements::Rotation::COUNTERCLOCKWISE) {
-            handleTankRotation(tank, TankMovements::Rotation::CLOCKWISE, deltaTime);
-        } else if (tank.getLastRotation() == TankMovements::Rotation::CLOCKWISE) {
-            handleTankRotation(tank, TankMovements::Rotation::COUNTERCLOCKWISE, deltaTime);
-        }
+        tank.setAngle(prevAngle);
+        tank.setTurretAngle(prevTurretAngle);
     }
 }
 

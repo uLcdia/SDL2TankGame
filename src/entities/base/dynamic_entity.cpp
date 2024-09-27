@@ -2,25 +2,21 @@
 
 DynamicEntity::DynamicEntity(double x, double y, double angle, std::shared_ptr<TextureInfo> textureInfo, double scale)
     : Entity(x, y, std::move(textureInfo)),
-      m_vx(0), m_vy(0), 
+      m_vx(0), m_vy(0),
+      m_rotationSpeed(0),
       m_angle(angle),
       m_scale(scale) 
 {}
 
 void DynamicEntity::update(double deltaTime) {
-    // Update position based on velocity
     m_x += m_vx * deltaTime;
     m_y += m_vy * deltaTime;
+    m_angle += m_rotationSpeed * deltaTime;
 }
 
 void DynamicEntity::render(SDL_Renderer* renderer) const {
     SDL_Rect destRect = getRect();
     SDL_RenderCopyEx(renderer, m_textureInfo->texture, nullptr, &destRect, m_angle, nullptr, SDL_FLIP_NONE);
-}
-
-void DynamicEntity::setVelocity(double vx, double vy) {
-    m_vx = vx;
-    m_vy = vy;
 }
 
 SDL_Rect DynamicEntity::getRect() const {

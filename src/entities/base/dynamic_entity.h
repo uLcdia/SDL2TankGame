@@ -20,6 +20,8 @@ public:
     void setVelocity(double vx, double vy);
     double getVelocityX() const { return m_vx; }
     double getVelocityY() const { return m_vy; }
+    void setRotationSpeed(double rotationSpeed) { m_rotationSpeed = rotationSpeed; }
+    double getRotationSpeed() const { return m_rotationSpeed; }
 
     int getScaledWidth() const { return static_cast<int>(m_textureInfo->width * m_scale); }
     int getScaledHeight() const { return static_cast<int>(m_textureInfo->height * m_scale); }
@@ -36,6 +38,7 @@ public:
 
 protected:
     double m_vx, m_vy;
+    double m_rotationSpeed;
     double m_angle;
     double m_scale;
 

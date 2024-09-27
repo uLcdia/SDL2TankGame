@@ -39,8 +39,8 @@ public:
     bool getTankIsAlive(const Tank& tank) const;
     
     void handleTankMovement(Tank& tank, TankMovements::Movement movement);
-    void handleTankRotation(Tank& tank, TankMovements::Rotation rotation, double deltaTime);
-    void handleTankTurretRotation(Tank& tank, TankMovements::Rotation rotation, double deltaTime);
+    void handleTankRotation(Tank& tank, TankMovements::Rotation rotation);
+    void handleTankTurretRotation(Tank& tank, TankMovements::Rotation rotation);
     void handleTankCycleCartridge(Tank& tank);
     void handleTankFire(Tank& tank);
     void handleTankDamage(Tank& tank, double damage);

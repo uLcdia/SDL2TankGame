@@ -22,15 +22,16 @@ void Chassis::move(TankMovements::Movement movement, double tileSpeedMultiplier)
     }
 }
 
-void Chassis::rotate(TankMovements::Rotation rotation, double deltaTime, double rotationSpeed) {
+void Chassis::rotate(TankMovements::Rotation rotation, double rotationSpeed) {
     switch (rotation) {
         case TankMovements::Rotation::CLOCKWISE:
-            m_angle += rotationSpeed * deltaTime;
+            setRotationSpeed(rotationSpeed);
             break;
         case TankMovements::Rotation::COUNTERCLOCKWISE:
-            m_angle -= rotationSpeed * deltaTime;
+            setRotationSpeed(-rotationSpeed);
             break;
         case TankMovements::Rotation::NONE:
+            setRotationSpeed(0);
             break;
     }
 

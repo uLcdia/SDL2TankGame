@@ -18,8 +18,8 @@ private:
     void renderEdges(SDL_Renderer* renderer) const;
 
     void move(TankMovements::Movement movement, double tileSpeedMultiplier);
-    void rotate(TankMovements::Rotation rotation, double deltaTime, double tileSpeedMultiplier);
-    void rotateTurret(TankMovements::Rotation rotation, double deltaTime);
+    void rotate(TankMovements::Rotation rotation, double rotationSpeed);
+    void rotateTurret(TankMovements::Rotation rotation);
     void cycleCartridge() { m_turret->cycleCartridge(); }
     void fire(const Cartridge::FireCallback& fireCallback) { m_turret->fire(fireCallback, m_name); }
     void damage(double damage) { if (isAlive()) { m_health -= damage; if (m_health <= 0) { m_isAlive = false; } } }
@@ -32,9 +32,11 @@ private:
     double getX() const { return m_chassis->getX(); }
     double getY() const { return m_chassis->getY(); }
     double getAngle() const { return m_chassis->getAngle(); }
+    double getTurretAngle() const { return m_turret->getAngle(); }
     void setX(double x) { m_chassis->setX(x); m_turret->setX(x); }
     void setY(double y) { m_chassis->setY(y); m_turret->setY(y); }
     void setAngle(double angle) { m_chassis->setAngle(angle); }
+    void setTurretAngle(double angle) { m_turret->setAngle(angle); }
     
     bool collidesWith(const Entity& other) const;
     bool collidesWith(const DynamicEntity& other) const;

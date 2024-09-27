@@ -15,7 +15,7 @@ public:
     void update(double deltaTime) override;
     void render(SDL_Renderer* renderer) const override;
 
-    void rotate(TankMovements::Rotation rotation, double deltaTime, double rotationSpeed);
+    void rotate(TankMovements::Rotation rotation, double rotationSpeed);
 
     void fire(const Cartridge::FireCallback& fireCallback, std::string shooter);
 

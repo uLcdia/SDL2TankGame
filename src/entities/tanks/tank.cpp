@@ -40,16 +40,21 @@ void Tank::move(TankMovements::Movement movement, double tileSpeedMultiplier) {
     }
 }
 
-void Tank::rotate(TankMovements::Rotation rotation, double deltaTime, double tileSpeedMultiplier) {
+void Tank::rotate(TankMovements::Rotation rotation, double tileSpeedMultiplier) {
     double rotationSpeed = m_isMoving ? m_chassisRotationSpeed * TankMovements::ROTATE_SPEED_MULTIPLIER * tileSpeedMultiplier : m_chassisRotationSpeed * tileSpeedMultiplier;
-    m_chassis->rotate(rotation, deltaTime, rotationSpeed);
-    m_turret->rotate(rotation, deltaTime, rotationSpeed);
-    m_lastRotation = rotation;
+    
+    if (rotation == TankMovements::Rotation::NONE) {
+        m_chassis->setRotationSpeed(0);
+        m_turret->setRotationSpeed(0);
+    } else {
+        m_chassis->rotate(rotation, rotationSpeed);
+        m_turret->rotate(rotation, rotationSpeed);
+    }
 }
 
-void Tank::rotateTurret(TankMovements::Rotation rotation, double deltaTime) {
+void Tank::rotateTurret(TankMovements::Rotation rotation) {
     // Turrent rotation should be independent of chassis rotation
-    m_turret->rotate(rotation, deltaTime, m_turretRotationSpeed);
+    m_turret->rotate(rotation, m_turretRotationSpeed);
 }
 
 bool Tank::collidesWith(const Entity& other) const {
