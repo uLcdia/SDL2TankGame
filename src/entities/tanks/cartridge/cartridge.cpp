@@ -21,7 +21,6 @@ void Cartridge::update(double deltaTime) {
     }
 }
 
-
 bool Cartridge::fire(double x, double y, double angle, const FireCallback& fireCallback, std::string shooter) {
     if (m_remainingShots > 0 && m_fireTimer <= 0) {
         fireCallback(m_projectileType, x, y, angle, shooter);

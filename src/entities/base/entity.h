@@ -18,7 +18,6 @@ public:
     Entity(double x, double y, std::shared_ptr<TextureInfo> textureInfo);
     virtual ~Entity() = default;
 
-    virtual void update(double deltaTime) = 0;
     virtual void render(SDL_Renderer* renderer) const;
 
     double getX() const { return m_x; }

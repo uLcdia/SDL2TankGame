@@ -12,16 +12,17 @@ public:
     Projectile(const ProjectileProperty& projectileProperty, double x, double y, double angle, std::shared_ptr<TextureInfo> textureInfo, std::string shooter);
     
     virtual void update(double deltaTime) override;
-    virtual void render(SDL_Renderer* renderer) const override;
     
-    bool isActive() const { return m_active; }
-    void setActive(bool active) { m_active = active; }
+    bool isActive() const { return m_isActive; }
+    void setActive(bool isActive) { m_isActive = isActive; }
 
     double getDamage() const { return m_damage; }
     std::string getShooter() const { return m_shooter; }
 
 protected:
-    bool m_active;
+    bool isOffScreen() const;
+
+    bool m_isActive;
     double m_speed;
     double m_damage;
     std::string m_shooter;

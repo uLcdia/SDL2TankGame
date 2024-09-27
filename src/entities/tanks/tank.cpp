@@ -3,9 +3,7 @@
 Tank::Tank(const TankProperty& tankProperty, double x, double y, std::shared_ptr<TextureInfo> chassisTexture, std::shared_ptr<TextureInfo> turretTexture)
     : m_name(tankProperty.name),
       m_health(tankProperty.health),
-      m_isAlive(true),
       m_isMoving(false),
-      m_lastRotation(TankMovements::Rotation::NONE),
       m_chassis(std::make_unique<Chassis>(tankProperty, x, y, std::move(chassisTexture))),
       m_turret(std::make_unique<Turret>(tankProperty, x, y, std::move(turretTexture))),
       m_chassisRotationSpeed(tankProperty.chassis.rotationSpeed),
@@ -41,12 +39,12 @@ void Tank::move(TankMovements::Movement movement, double tileSpeedMultiplier) {
 }
 
 void Tank::rotate(TankMovements::Rotation rotation, double tileSpeedMultiplier) {
-    double rotationSpeed = m_isMoving ? m_chassisRotationSpeed * TankMovements::ROTATE_SPEED_MULTIPLIER * tileSpeedMultiplier : m_chassisRotationSpeed * tileSpeedMultiplier;
-    
     if (rotation == TankMovements::Rotation::NONE) {
         m_chassis->setRotationSpeed(0);
         m_turret->setRotationSpeed(0);
     } else {
+        double rotationSpeed = m_isMoving ? m_chassisRotationSpeed * TankMovements::ROTATE_SPEED_MULTIPLIER * tileSpeedMultiplier 
+                                          : m_chassisRotationSpeed * tileSpeedMultiplier;
         m_chassis->rotate(rotation, rotationSpeed);
         m_turret->rotate(rotation, rotationSpeed);
     }

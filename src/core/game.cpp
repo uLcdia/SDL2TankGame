@@ -53,7 +53,8 @@ void Game::run() {
         lastTime = currentTime;
 
         handleEvents();
-        update(deltaTime);
+        m_inputManager.handleInput(*m_entityManager);
+        m_entityManager->update(deltaTime);
         render();
     }
 }
@@ -66,17 +67,14 @@ void Game::handleEvents() {
             case SDL_QUIT:
                 m_isRunning = false;
                 break;
-            default:
+            case SDL_KEYDOWN:
+            case SDL_KEYUP:
                 m_inputManager.handleEvent(event, *m_entityManager);
+                break;
+            default:
                 break;
         }
     }
-}
-
-// Update game state
-void Game::update(double deltaTime) {
-    m_entityManager->update(deltaTime);
-    m_inputManager.handleInput(*m_entityManager, deltaTime);
 }
 
 // Render game objects

@@ -14,10 +14,10 @@ public:
     DynamicEntity(double x, double y, double angle, std::shared_ptr<TextureInfo> textureInfo, double scale);
     virtual ~DynamicEntity() = default;
 
-    virtual void update(double deltaTime) override;
+    virtual void update(double deltaTime);
     virtual void render(SDL_Renderer* renderer) const override;
 
-    void setVelocity(double vx, double vy);
+    void setVelocity(double vx, double vy) { m_vx = vx; m_vy = vy; }
     double getVelocityX() const { return m_vx; }
     double getVelocityY() const { return m_vy; }
     void setRotationSpeed(double rotationSpeed) { m_rotationSpeed = rotationSpeed; }

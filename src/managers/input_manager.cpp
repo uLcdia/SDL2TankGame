@@ -1,6 +1,6 @@
 #include "input_manager.h"
 
-void InputManager::handleInput(EntityManager& entityManager, double deltaTime) {
+void InputManager::handleInput(EntityManager& entityManager) {
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
     auto& playerTank = entityManager.getPlayerTank();
 

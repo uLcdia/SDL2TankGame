@@ -43,14 +43,13 @@ void Turret::rotate(TankMovements::Rotation rotation, double rotationSpeed) {
             setRotationSpeed(-rotationSpeed);
             break;
         case TankMovements::Rotation::NONE:
+            setRotationSpeed(0);
             break;
     }
-
-    m_angle = fmod(m_angle + 360.0, 360.0);
 }
 
 void Turret::fire(const Cartridge::FireCallback& fireCallback, std::string shooter) {
-    if (!m_cartridges.empty()) {
+    if (!m_cartridges.empty() && m_cartridges[m_currentCartridgeIndex].isReady()) {
         double spawnDistance = PROJECTILE_SPAWN_DISTANCE * m_scale;
         double shellX = getX() + std::sin(m_angle * M_PI / 180.0) * spawnDistance;
         double shellY = getY() - std::cos(m_angle * M_PI / 180.0) * spawnDistance;

@@ -6,7 +6,7 @@
 
 class InputManager {
 public:
-    void handleInput(EntityManager& entityManager, double deltaTime);
+    void handleInput(EntityManager& entityManager);
     void handleEvent(SDL_Event& event, EntityManager& entityManager);
 
 private:

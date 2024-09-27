@@ -18,7 +18,6 @@ public:
 
 private:
     void handleEvents();
-    void update(double deltaTime);
     void render();
     void cleanup();
 

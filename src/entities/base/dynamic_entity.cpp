@@ -11,7 +11,7 @@ DynamicEntity::DynamicEntity(double x, double y, double angle, std::shared_ptr<T
 void DynamicEntity::update(double deltaTime) {
     m_x += m_vx * deltaTime;
     m_y += m_vy * deltaTime;
-    m_angle += m_rotationSpeed * deltaTime;
+    m_angle = fmod(m_angle + m_rotationSpeed * deltaTime, 360.0);
 }
 
 void DynamicEntity::render(SDL_Renderer* renderer) const {

@@ -10,7 +10,7 @@ public:
     int getHealth() const { return m_health; };
     bool isAlive() const { return m_health > 0; };
 
-    void damage(double damage);
+    void damage(double damage) { if (isAlive() && m_vulnerable) { m_health -= damage; } }
     
 private:
     int m_health;
