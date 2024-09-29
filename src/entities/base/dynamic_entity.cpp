@@ -11,7 +11,7 @@ DynamicEntity::DynamicEntity(double x, double y, double angle, std::shared_ptr<T
 void DynamicEntity::update(double deltaTime) {
     m_x += m_vx * deltaTime;
     m_y += m_vy * deltaTime;
-    m_angle = fmod(m_angle + m_rotationSpeed * deltaTime, 360.0);
+    m_angle = std::fmod(m_angle + m_rotationSpeed * deltaTime, 360.0);
 }
 
 void DynamicEntity::render(SDL_Renderer* renderer) const {
@@ -41,8 +41,8 @@ std::array<SDL_Point, 4> DynamicEntity::getVertices() const {
     auto rotatePoint = [centerX, centerY, angle](double x, double y) {
         double dx = x - centerX;
         double dy = y - centerY;
-        double rotatedX = centerX + (dx * cos(angle) - dy * sin(angle));
-        double rotatedY = centerY + (dx * sin(angle) + dy * cos(angle));
+        double rotatedX = centerX + (dx * std::cos(angle) - dy * std::sin(angle));
+        double rotatedY = centerY + (dx * std::sin(angle) + dy * std::cos(angle));
         return SDL_Point{static_cast<int>(rotatedX), static_cast<int>(rotatedY)};
     };
 

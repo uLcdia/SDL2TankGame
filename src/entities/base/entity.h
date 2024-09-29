@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <memory>
 #include <array>
+#include <cmath>
 
 /**
  * @class Entity
