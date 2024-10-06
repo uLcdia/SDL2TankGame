@@ -1,6 +1,7 @@
 #include "entity_manager.h"
 #include <filesystem>
 #include <iostream>
+#include <limits>
 
 constexpr bool DEBUG_COLLISIONS = true;
 
@@ -239,13 +240,13 @@ void EntityManager::createProjectile(const std::string& type, double x, double y
 }
 
 double EntityManager::getTileSpeedMultiplier(Tank& tank) const {
-    double tileSpeedMultiplier = 1.0;
+    double tileSpeedMultiplier = std::numeric_limits<double>::max();
     for (const auto& groundTile : m_groundTiles) {
         if (tank.collidesWith(*groundTile)) {
             tileSpeedMultiplier = std::min(tileSpeedMultiplier, groundTile->getTileSpeedMultiplier());
         }
     }
-    return tileSpeedMultiplier;
+    return tileSpeedMultiplier == std::numeric_limits<double>::max() ? 1.0 : tileSpeedMultiplier;
 }
 
 void EntityManager::handleUpdate(Tank& tank, double deltaTime, bool isPlayer) {
