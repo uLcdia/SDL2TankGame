@@ -22,11 +22,12 @@ private:
     void rotateTurret(TankMovements::Rotation rotation);
     void cycleCartridge() { m_turret->cycleCartridge(); }
     void fire(const Cartridge::FireCallback& fireCallback) { m_turret->fire(fireCallback, m_name); }
-    void damage(double damage) { if (isAlive()) { m_health -= damage; } }
-    void heal(double health) { if (isAlive()) { m_health += health; } }
+    void damage(double damage);
+    void heal(double health);
 
     std::string getName() const { return m_name; }
     double getHealth() const { return m_health; }
+    double getMaxHealth() const { return m_maxHealth; }
     bool isAlive() const { return m_health > 0; }
 
     double getX() const { return m_chassis->getX(); }
@@ -48,6 +49,7 @@ private:
 
     std::string m_name;  
     double m_health;
+    double m_maxHealth;
     bool m_isMoving;
     std::unique_ptr<Chassis> m_chassis;
     std::unique_ptr<Turret> m_turret;

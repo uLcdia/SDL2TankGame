@@ -3,6 +3,7 @@
 Tank::Tank(const TankProperty& tankProperty, double x, double y, std::shared_ptr<TextureInfo> chassisTexture, std::shared_ptr<TextureInfo> turretTexture)
     : m_name(tankProperty.name),
       m_health(tankProperty.health),
+      m_maxHealth(tankProperty.health),
       m_isMoving(false),
       m_chassis(std::make_unique<Chassis>(tankProperty, x, y, std::move(chassisTexture))),
       m_turret(std::make_unique<Turret>(tankProperty, x, y, std::move(turretTexture))),
@@ -53,6 +54,26 @@ void Tank::rotate(TankMovements::Rotation rotation, double tileSpeedMultiplier) 
 void Tank::rotateTurret(TankMovements::Rotation rotation) {
     // Turrent rotation should be independent of chassis rotation
     m_turret->rotate(rotation, m_turretRotationSpeed);
+}
+
+void Tank::damage(double damage) {
+    if (!isAlive()) {
+        return;
+    }
+    m_health -= damage;
+    if (m_health <= 0) {
+        m_health = 0;
+    }
+}
+
+void Tank::heal(double health) {
+    if (!isAlive() || m_health == m_maxHealth) {
+        return;
+    }
+    m_health += health;
+    if (m_health > m_maxHealth) {
+        m_health = m_maxHealth;
+    }
 }
 
 bool Tank::collidesWith(const Entity& other) const {

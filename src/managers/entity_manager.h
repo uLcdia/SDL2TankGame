@@ -36,6 +36,7 @@ public:
 
     std::string getTankName(const Tank& tank) const;
     double getTankHealth(const Tank& tank) const;
+    double getTankMaxHealth(const Tank& tank) const;
     bool getTankIsAlive(const Tank& tank) const;
     
     void handleTankMovement(Tank& tank, TankMovements::Movement movement);

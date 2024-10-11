@@ -83,6 +83,10 @@ double EntityManager::getTankHealth(const Tank& tank) const {
     return tank.getHealth();
 }
 
+double EntityManager::getTankMaxHealth(const Tank& tank) const {
+    return tank.getMaxHealth();
+}
+
 bool EntityManager::getTankIsAlive(const Tank& tank) const {
     return tank.isAlive();
 }
