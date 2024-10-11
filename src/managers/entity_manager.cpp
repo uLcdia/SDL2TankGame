@@ -188,6 +188,8 @@ bool EntityManager::loadTanks(const std::string& tanksFilePath) {
         return false;
     }
 
+    std::cout << "Tanks parsed successfully." << std::endl;
+
     // Load player tank
     const auto& playerTankProperty = tankParser.getPlayerTank();
     m_playerTank = createTank(playerTankProperty);
