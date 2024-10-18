@@ -9,15 +9,6 @@ void Entity::render(SDL_Renderer* renderer) const {
     SDL_RenderCopy(renderer, m_textureInfo->texture, nullptr, &destRect);
 }
 
-void Entity::renderEdges(SDL_Renderer* renderer) const {
-    auto vertices = getVertices();
-
-    for (std::size_t i = 0; i < vertices.size(); ++i) {
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-        SDL_RenderDrawLine(renderer, vertices[i].x, vertices[i].y, vertices[(i + 1) % vertices.size()].x, vertices[(i + 1) % vertices.size()].y);
-    }
-}
-
 SDL_Rect Entity::getRect() const {
     return {
         static_cast<int>(m_x),

@@ -24,11 +24,6 @@ void Tank::render(SDL_Renderer* renderer) const {
     m_turret->render(renderer);
 }
 
-void Tank::renderEdges(SDL_Renderer* renderer) const {
-    m_chassis->renderEdges(renderer);
-    m_turret->renderEdges(renderer);
-}
-
 void Tank::move(TankMovements::Movement movement, double tileSpeedMultiplier) {
     if (movement == TankMovements::Movement::NONE) {
         m_chassis->setVelocity(0, 0);

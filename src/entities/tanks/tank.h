@@ -15,7 +15,6 @@ private:
 
     void update(double deltaTime);
     void render(SDL_Renderer* renderer) const;
-    void renderEdges(SDL_Renderer* renderer) const;
 
     void move(TankMovements::Movement movement, double tileSpeedMultiplier);
     void rotate(TankMovements::Rotation rotation, double rotationSpeed);

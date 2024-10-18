@@ -33,8 +33,6 @@ public:
 
     virtual std::array<SDL_Point, 4> getVertices() const;
 
-    void renderEdges(SDL_Renderer* renderer) const;
-
 protected:
     double m_x, m_y;
     std::shared_ptr<TextureInfo> m_textureInfo;

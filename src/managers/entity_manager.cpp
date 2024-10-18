@@ -3,8 +3,6 @@
 #include <iostream>
 #include <limits>
 
-constexpr bool DEBUG_COLLISIONS = true;
-
 EntityManager::EntityManager(ResourceManager& resourceManager)
     : m_resourceManager(resourceManager)
 {}
@@ -35,43 +33,28 @@ void EntityManager::render(SDL_Renderer* renderer) const {
     // Render ground tiles
     for (const auto& groundTile : m_groundTiles) {
         groundTile->render(renderer);
-        if (DEBUG_COLLISIONS) {
-            groundTile->renderEdges(renderer);
-        }
     }
 
     // Render bricks
     for (const auto& brick : m_bricks) {
         if (brick->isAlive()) {
             brick->render(renderer);
-            if (DEBUG_COLLISIONS) {
-                brick->renderEdges(renderer);
-            }
         }
     }
 
     // Render enemy tanks
     for (const auto& enemyTank : m_enemyTanks) {
         enemyTank->render(renderer);
-        if (DEBUG_COLLISIONS) {
-            enemyTank->renderEdges(renderer);
-        } 
     }
 
     // Render player tank
     if (m_playerTank) {
         m_playerTank->render(renderer);
-        if (DEBUG_COLLISIONS) {
-            m_playerTank->renderEdges(renderer);
-        }
     }
 
     // Render projectiles
     for (const auto& projectile : m_projectiles) {
         projectile->render(renderer);
-        if (DEBUG_COLLISIONS) {
-            projectile->renderEdges(renderer);
-        }
     }
 }
 
