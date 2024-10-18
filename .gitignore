@@ -37,3 +37,6 @@
 # Proprietary files
 # Music
 /assets/audio/music/*
+
+# Build
+build/
