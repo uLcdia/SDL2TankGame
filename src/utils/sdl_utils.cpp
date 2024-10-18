@@ -54,3 +54,12 @@ TextureInfo loadTextureWithInfo(const std::string& path, SDL_Renderer* renderer)
 
     return info;
 }
+
+// Load music
+Mix_Music* loadMixerMusic(const std::string& path) {
+    Mix_Music* music = Mix_LoadMUS(path.c_str());
+    if (music == nullptr) {
+        std::cerr << "Unable to load music " << path << "! SDL_mixer Error: " << Mix_GetError() << std::endl;
+    }
+    return music;
+}

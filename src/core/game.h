@@ -4,6 +4,8 @@
 #include "../managers/resource_manager.h"
 #include "../managers/entity_manager.h"
 #include "../managers/input_manager.h"
+#include "../managers/audio_manager.h"
+#include "../managers/game_state_manager.h"
 #include <SDL.h>
 #include <memory>
 
@@ -29,9 +31,9 @@ private:
     SDL_Renderer* m_renderer;
     InputManager m_inputManager;
     ResourceManager m_resourceManager;
-    
-    // m_entityManager is a unique pointer, because we are going to store the reference to the m_resourceManager in it
+    GameStateManager m_gameStateManager;
     std::unique_ptr<EntityManager> m_entityManager;
+    std::unique_ptr<AudioManager> m_audioManager;
 };
 
 #endif // GAME_H

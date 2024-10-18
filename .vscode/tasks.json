@@ -18,7 +18,8 @@
                 "-I/usr/include/SDL2",
                 "-I/usr/include/nlohmann",
                 "-lSDL2",
-                "-lSDL2_image"
+                "-lSDL2_image",
+                "-lSDL2_mixer"
             ],
             "group": {
                 "kind": "build",

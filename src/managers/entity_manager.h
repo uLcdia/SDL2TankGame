@@ -33,6 +33,7 @@ public:
     const Tank& getPlayerTank() const { return *m_playerTank; }
     Tank& getEnemyTank(std::size_t index) { return *m_enemyTanks[index]; }
     const Tank& getEnemyTank(std::size_t index) const { return *m_enemyTanks[index]; }
+    std::size_t getEnemyTankCount() const { return m_enemyTanks.size(); }
 
     std::string getTankName(const Tank& tank) const;
     double getTankHealth(const Tank& tank) const;

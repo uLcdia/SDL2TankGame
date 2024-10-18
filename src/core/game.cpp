@@ -6,7 +6,8 @@
 // Constructor: Initializes game properties and creates the tank
 Game::Game(const char* title, int width, int height)
     : m_title(title), m_width(width), m_height(height), m_isRunning(false),
-      m_window(nullptr), m_renderer(nullptr), m_entityManager(nullptr)
+      m_window(nullptr), m_renderer(nullptr),
+      m_entityManager(nullptr), m_audioManager(nullptr)
 {}
 
 // Destructor: Cleans up SDL resources
@@ -33,8 +34,16 @@ bool Game::init() {
     // Initialize EntityManager
     m_entityManager = std::make_unique<EntityManager>(m_resourceManager);
 
+    // Initialize AudioManager
+    m_audioManager = std::make_unique<AudioManager>(m_resourceManager);
+
     if (!m_entityManager->loadLevel("level1")) {
         std::cerr << "Failed to load level!" << std::endl;
+        return false;
+    }
+
+    if (!m_audioManager->loadLevelMusic("level1")) {
+        std::cerr << "Failed to load level music!" << std::endl;
         return false;
     }
 
@@ -55,6 +64,7 @@ void Game::run() {
         handleEvents();
         m_inputManager.handleInput(*m_entityManager);
         m_entityManager->update(deltaTime);
+        m_gameStateManager.update(*m_entityManager, *m_audioManager);
         render();
     }
 }

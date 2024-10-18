@@ -39,3 +39,28 @@ std::shared_ptr<TextureInfo> ResourceManager::getTextureInfo(const std::string& 
  * https://opengameart.org/content/bullet-for-ammometer
  * 
  */
+
+void ResourceManager::loadMusic(const std::string& musicName, const std::string& path) {
+    if (m_music.find(musicName) != m_music.end()) {
+        std::cerr << "Music already loaded: " << musicName << std::endl;
+        return;
+    }
+
+    std::string fullPath = "./assets/audio/music/" + path;
+    Mix_Music* music = loadMixerMusic(fullPath);
+    if (music != nullptr) {
+        m_music.emplace(musicName, music);
+        std::cout << "Loaded music: " << musicName << std::endl;
+    } else {
+        std::cerr << "Failed to load music: " << musicName << std::endl;
+    }
+}
+
+Mix_Music* ResourceManager::getMusic(const std::string& name) const {
+    auto it = m_music.find(name);
+    if (it != m_music.end()) {
+        return it->second;
+    }
+    std::cerr << "Music not found: " << name << std::endl;
+    return nullptr;
+}

@@ -33,3 +33,7 @@
 
 # Linux
 /SDL2TankGame
+
+# Proprietary files
+# Music
+/assets/audio/music/*
