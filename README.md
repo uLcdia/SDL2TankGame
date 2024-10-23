@@ -116,4 +116,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 > 
 > The collaboration branch extends from commit [6909dd1](https://github.com/uLcdia/SDL2TankGame/commit/6909dd1a6a3ea6262b78a673d38144b7b5821595). The team later incorporated code from this repository into their collaborative work.
 > 
-> This branch is now solely maintained and developed by me.
+> This branch is solely maintained and developed by me.
