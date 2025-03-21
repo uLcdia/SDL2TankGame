@@ -1,0 +1,9 @@
+{
+    "groupName": "group1",
+    "musicTracks": {
+        "normal": "法廷休憩室 ～始まりの序曲 .oga",
+        "levelClear": "ジングル ～こんなところで終われない .oga",
+        "lowHealth": "真実は告げる 2001.oga",
+        "enemyLowHealth": "追求 ～追いつめられて.oga"
+    }
+}

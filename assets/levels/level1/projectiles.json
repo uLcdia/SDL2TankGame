@@ -1,0 +1,18 @@
+{
+    "projectiles": [
+        {
+            "name": "shell",
+            "texturePath": "entities/projectiles/shell.png",
+            "speed": 300,
+            "damage": 5,
+            "scale": 1.0
+        },
+        {
+            "name": "bullet",
+            "texturePath": "entities/projectiles/shell.png",
+            "speed": 600,
+            "damage": 1,
+            "scale": 0.5
+        }
+    ]
+}

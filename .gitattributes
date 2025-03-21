@@ -1,0 +1,37 @@
+# Sources
+*.c     text diff=cpp linguist-language=C++
+*.cc    text diff=cpp linguist-language=C++
+*.cxx   text diff=cpp linguist-language=C++
+*.cpp   text diff=cpp linguist-language=C++
+*.cpi   text diff=cpp linguist-language=C++
+*.c++   text diff=cpp linguist-language=C++
+*.hpp   text diff=cpp linguist-language=C++
+*.h     text diff=cpp linguist-language=C++
+*.h++   text diff=cpp linguist-language=C++
+*.hh    text diff=cpp linguist-language=C++
+
+# Compiled Object files
+*.slo   binary
+*.lo    binary
+*.o     binary
+*.obj   binary
+
+# Precompiled Headers
+*.gch   binary
+*.pch   binary
+
+# Compiled Dynamic libraries
+*.so    binary
+*.dylib binary
+*.dll   binary
+
+# Compiled Static libraries
+*.lai   binary
+*.la    binary
+*.a     binary
+*.lib   binary
+
+# Executables
+*.exe   binary
+*.out   binary
+*.app   binary
